@@ -1,0 +1,254 @@
+{
+  "task": {
+    "title": "Task Guide",
+    "sections": [
+      {
+        "heading": "What is a Task?",
+        "body": "Individual work items that move the project forward"
+      },
+      {
+        "heading": "Fields",
+        "items": [
+          "**Title** `text` (required) — *A clear, actionable task title*",
+          "**Owner** `member` (required) — *Assign to the team member responsible*",
+          "**Status** `select` Options: `not_started`, `in_progress`, `blocked`, `done`",
+          "**Priority** `select` Options: `P0`, `P1`, `P2`, `P3`",
+          "**Due Date** `date`",
+          "**Notes** `text` — *Relevant context, dependencies, or rationale*"
+        ]
+      },
+      {
+        "heading": "How records are created",
+        "items": [
+          "Tell Marty (or any Claude Code session in this repo) what happened — it appends event files following the schema's field definitions and AI instructions.",
+          "Events are written to `events/` and state is recomputed by `rebuild_state.ts`."
+        ]
+      },
+      {
+        "heading": "Dashboard view",
+        "body": "This tab renders as a **table** view, sorted by **priority**. You can change this in the Schema Editor tab."
+      }
+    ],
+    "_auto": true
+  },
+  "blocker": {
+    "title": "Blocker Guide",
+    "sections": [
+      {
+        "heading": "What is a Blocker?",
+        "body": "Things preventing progress right now"
+      },
+      {
+        "heading": "Fields",
+        "items": [
+          "**Title** `text` (required)",
+          "**Owner** `member` — *Who is responsible for unblocking this?*",
+          "**Status** `select` Options: `open`, `resolved`",
+          "**Severity** `select` Options: `critical`, `high`, `medium`, `low`",
+          "**Related Tasks** `ref:task[]`",
+          "**Notes** `text`"
+        ]
+      },
+      {
+        "heading": "How records are created",
+        "items": [
+          "Tell Marty (or any Claude Code session in this repo) what happened — it appends event files following the schema's field definitions and AI instructions.",
+          "Events are written to `events/` and state is recomputed by `rebuild_state.ts`."
+        ]
+      },
+      {
+        "heading": "Dashboard view",
+        "body": "This tab renders as a **cards** view, grouped by **status**, sorted by **severity**. You can change this in the Schema Editor tab."
+      }
+    ],
+    "_auto": true
+  },
+  "risk": {
+    "title": "Risk Guide",
+    "sections": [
+      {
+        "heading": "What is a Risk?",
+        "body": "Known risks to the project's success, with likelihood, impact, and mitigation plans"
+      },
+      {
+        "heading": "Fields",
+        "items": [
+          "**Risk** `text` (required) — *Clear description of what could go wrong*",
+          "**Status** `select` Options: `identified`, `mitigating`, `accepted`, `resolved`",
+          "**Severity** `select` Options: `critical`, `high`, `medium`, `low` — *How bad would it be if this risk materialises*",
+          "**Likelihood** `select` Options: `high`, `medium`, `low` — *How likely is this risk to materialise*",
+          "**Impact** `text` — *What happens if this risk materialises — specific consequences to timeline, outcome, or team*",
+          "**Mitigation** `text` — *What can be done to reduce likelihood or impact*",
+          "**Owner** `member` — *Who is responsible for monitoring and mitigating this risk*"
+        ]
+      },
+      {
+        "heading": "How records are created",
+        "items": [
+          "Tell Marty (or any Claude Code session in this repo) what happened — it appends event files following the schema's field definitions and AI instructions.",
+          "Events are written to `events/` and state is recomputed by `rebuild_state.ts`."
+        ]
+      },
+      {
+        "heading": "Dashboard view",
+        "body": "This tab renders as a **cards** view, grouped by **status**, sorted by **severity**. You can change this in the Schema Editor tab."
+      }
+    ],
+    "_auto": true
+  },
+  "decision": {
+    "title": "Decision Guide",
+    "sections": [
+      {
+        "heading": "What is a Decision?",
+        "body": "Decisions made during the project — who decided what, when, and why"
+      },
+      {
+        "heading": "Fields",
+        "items": [
+          "**Decision** `text` (required)",
+          "**Made By** `member`",
+          "**Date** `date` (required)",
+          "**Context** `text` — *Why was this decision made? What alternatives were considered?*",
+          "**Tags** `multi_select` Options: `technical`, `product`, `process`, `scope`, `people`"
+        ]
+      },
+      {
+        "heading": "How records are created",
+        "items": [
+          "Tell Marty (or any Claude Code session in this repo) what happened — it appends event files following the schema's field definitions and AI instructions.",
+          "Events are written to `events/` and state is recomputed by `rebuild_state.ts`."
+        ]
+      },
+      {
+        "heading": "Dashboard view",
+        "body": "This tab renders as a **timeline** view, sorted by **date**. You can change this in the Schema Editor tab."
+      }
+    ],
+    "_auto": true
+  },
+  "open_question": {
+    "title": "Open Question Guide",
+    "sections": [
+      {
+        "heading": "What is a Open Question?",
+        "body": "Questions that need answers — tracked by criticality and status"
+      },
+      {
+        "heading": "Fields",
+        "items": [
+          "**Question** `text` (required) — *The specific question that needs answering*",
+          "**Status** `select` Options: `open`, `answered`, `deferred`",
+          "**Criticality** `select` Options: `decision_critical`, `important`, `longer_term` — *decision_critical = must be resolved before committing further. important = should be resolved early. longer_term = can be resolved during execution.*",
+          "**Answer** `text` — *The answer once resolved, with source and date*",
+          "**Answered By** `member`",
+          "**Notes** `text` — *Additional context or why this question matters*"
+        ]
+      },
+      {
+        "heading": "How records are created",
+        "items": [
+          "Tell Marty (or any Claude Code session in this repo) what happened — it appends event files following the schema's field definitions and AI instructions.",
+          "Events are written to `events/` and state is recomputed by `rebuild_state.ts`."
+        ]
+      },
+      {
+        "heading": "Dashboard view",
+        "body": "This tab renders as a **table** view, grouped by **criticality**, sorted by **status**. You can change this in the Schema Editor tab."
+      }
+    ],
+    "_auto": true
+  },
+  "idea": {
+    "title": "Idea Guide",
+    "sections": [
+      {
+        "heading": "What is a Idea?",
+        "body": "Raw ideas, instincts, and possibilities to return to later. Not all ideas become tasks — some are strategic bets, some are hypotheses, some are parking-lot items."
+      },
+      {
+        "heading": "Fields",
+        "items": [
+          "**Title** `text` (required) — *Clear, concise name for this idea*",
+          "**Description** `text` (required) — *What the idea is, why it matters, and any initial thinking on how it could work*",
+          "**Status** `select` Options: `raw`, `developing`, `ready_to_execute`, `parked`, `promoted` — *raw = just captured. developing = being refined. ready_to_execute = has enough shape to become tasks. parked = good idea, not now. promoted = converted to tasks.*",
+          "**Priority** `select` Options: `high`, `medium`, `low`, `unranked`",
+          "**Dependencies** `text` — *What needs to be true before this idea can be executed?*",
+          "**Notes** `text`"
+        ]
+      },
+      {
+        "heading": "How records are created",
+        "items": [
+          "Tell Marty (or any Claude Code session in this repo) what happened — it appends event files following the schema's field definitions and AI instructions.",
+          "Events are written to `events/` and state is recomputed by `rebuild_state.ts`."
+        ]
+      },
+      {
+        "heading": "Dashboard view",
+        "body": "This tab renders as a **cards** view, grouped by **status**, sorted by **priority**. You can change this in the Schema Editor tab."
+      }
+    ],
+    "_auto": true
+  },
+  "diagram": {
+    "title": "Diagram Guide",
+    "sections": [
+      {
+        "heading": "What is a Diagram?",
+        "body": "Visual diagrams — architecture, timelines, org charts, dependency maps"
+      },
+      {
+        "heading": "Fields",
+        "items": [
+          "**Title** `text` (required) — *Concise name for this diagram*",
+          "**Description** `text` — *What this diagram shows and why it's useful*",
+          "**Mermaid Code** `text` (required) — *Valid Mermaid diagram syntax (graph, flowchart, sequence, gantt, etc.)*",
+          "**Category** `select` Options: `process`, `architecture`, `timeline`, `org-chart`, `dependency`, `other`"
+        ]
+      },
+      {
+        "heading": "How records are created",
+        "items": [
+          "Tell Marty (or any Claude Code session in this repo) what happened — it appends event files following the schema's field definitions and AI instructions.",
+          "Events are written to `events/` and state is recomputed by `rebuild_state.ts`."
+        ]
+      },
+      {
+        "heading": "Dashboard view",
+        "body": "This tab renders as a **diagram** view. You can change this in the Schema Editor tab."
+      }
+    ],
+    "_auto": true
+  },
+  "glossary": {
+    "title": "Glossary Guide",
+    "sections": [
+      {
+        "heading": "What is a Glossary?",
+        "body": "Terms, tools, concepts, and acronyms used in this project"
+      },
+      {
+        "heading": "Fields",
+        "items": [
+          "**Term** `text` (required) — *The term or acronym*",
+          "**Definition** `text` (required) — *Clear, concise explanation in the context of this project*",
+          "**Category** `select` Options: `strategy`, `tools`, `architecture`, `metrics`, `process`, `other`",
+          "**Aliases** `text` — *Alternative names or acronyms for the same thing*"
+        ]
+      },
+      {
+        "heading": "How records are created",
+        "items": [
+          "Tell Marty (or any Claude Code session in this repo) what happened — it appends event files following the schema's field definitions and AI instructions.",
+          "Events are written to `events/` and state is recomputed by `rebuild_state.ts`."
+        ]
+      },
+      {
+        "heading": "Dashboard view",
+        "body": "This tab renders as a **table** view, grouped by **category**, sorted by **term**. You can change this in the Schema Editor tab."
+      }
+    ],
+    "_auto": true
+  }
+}

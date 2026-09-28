@@ -27,4 +27,9 @@ ideas/*
 # Agent-bus conversation transcripts — durable on disk, not committed
 tools/agent-bus/transcripts/
 
+# Console local state — computed or session-specific
+console/cycle_state.json
+console/activity_log.md
+console/events/*.json
+
 __pycache__/

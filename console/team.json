@@ -1,0 +1,21 @@
+{
+  "members": [
+    {
+      "id": "lead",
+      "name": "Your Name",
+      "role": "lead",
+      "briefingFocus": ["open_tasks", "blockers", "decisions", "open_questions"]
+    },
+    {
+      "id": "system",
+      "name": "System",
+      "role": "system",
+      "briefingFocus": []
+    }
+  ],
+  "stakeholders": [],
+  "roles": {
+    "lead": {"label": "Lead", "canUpdateConfig": true},
+    "system": {"label": "System", "canUpdateConfig": false}
+  }
+}

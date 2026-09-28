@@ -1,0 +1,124 @@
+{
+  "schemas": {
+    "task": {
+      "name": "Task",
+      "icon": "clipboard",
+      "description": "Individual work items that move the project forward",
+      "fields": [
+        {"id": "title", "name": "Title", "type": "text", "required": true, "aiInstruction": "A clear, actionable task title"},
+        {"id": "owner", "name": "Owner", "type": "member", "required": true, "aiInstruction": "Assign to the team member responsible"},
+        {"id": "status", "name": "Status", "type": "select", "options": ["not_started", "in_progress", "blocked", "done"], "default": "not_started"},
+        {"id": "priority", "name": "Priority", "type": "select", "options": ["P0", "P1", "P2", "P3"]},
+        {"id": "dueDate", "name": "Due Date", "type": "date"},
+        {"id": "notes", "name": "Notes", "type": "text", "aiInstruction": "Relevant context, dependencies, or rationale"}
+      ],
+      "dashboardView": {"type": "table", "sortBy": "priority"}
+    },
+    "blocker": {
+      "name": "Blocker",
+      "icon": "octagon",
+      "description": "Things preventing progress right now",
+      "fields": [
+        {"id": "title", "name": "Title", "type": "text", "required": true},
+        {"id": "owner", "name": "Owner", "type": "member", "aiInstruction": "Who is responsible for unblocking this?"},
+        {"id": "status", "name": "Status", "type": "select", "options": ["open", "resolved"], "default": "open"},
+        {"id": "severity", "name": "Severity", "type": "select", "options": ["critical", "high", "medium", "low"]},
+        {"id": "relatedTasks", "name": "Related Tasks", "type": "ref:task[]"},
+        {"id": "notes", "name": "Notes", "type": "text"}
+      ],
+      "dashboardView": {"type": "cards", "groupBy": "status", "sortBy": "severity"}
+    },
+    "risk": {
+      "name": "Risk",
+      "icon": "alert-triangle",
+      "description": "Known risks to the project's success, with likelihood, impact, and mitigation plans",
+      "fields": [
+        {"id": "title", "name": "Risk", "type": "text", "required": true, "aiInstruction": "Clear description of what could go wrong"},
+        {"id": "status", "name": "Status", "type": "select", "options": ["identified", "mitigating", "accepted", "resolved"], "default": "identified"},
+        {"id": "severity", "name": "Severity", "type": "select", "options": ["critical", "high", "medium", "low"], "aiInstruction": "How bad would it be if this risk materialises"},
+        {"id": "likelihood", "name": "Likelihood", "type": "select", "options": ["high", "medium", "low"], "aiInstruction": "How likely is this risk to materialise"},
+        {"id": "impact", "name": "Impact", "type": "text", "aiInstruction": "What happens if this risk materialises — specific consequences to timeline, outcome, or team"},
+        {"id": "mitigation", "name": "Mitigation", "type": "text", "aiInstruction": "What can be done to reduce likelihood or impact"},
+        {"id": "owner", "name": "Owner", "type": "member", "aiInstruction": "Who is responsible for monitoring and mitigating this risk"}
+      ],
+      "dashboardView": {"type": "cards", "groupBy": "status", "sortBy": "severity"}
+    },
+    "decision": {
+      "name": "Decision",
+      "icon": "gavel",
+      "description": "Decisions made during the project — who decided what, when, and why",
+      "fields": [
+        {"id": "title", "name": "Decision", "type": "text", "required": true},
+        {"id": "madeBy", "name": "Made By", "type": "member"},
+        {"id": "date", "name": "Date", "type": "date", "required": true},
+        {"id": "context", "name": "Context", "type": "text", "aiInstruction": "Why was this decision made? What alternatives were considered?"},
+        {"id": "tags", "name": "Tags", "type": "multi_select", "options": ["technical", "product", "process", "scope", "people"]}
+      ],
+      "dashboardView": {"type": "timeline", "sortBy": "date"}
+    },
+    "open_question": {
+      "name": "Open Question",
+      "icon": "help-circle",
+      "description": "Questions that need answers — tracked by criticality and status",
+      "fields": [
+        {"id": "title", "name": "Question", "type": "text", "required": true, "aiInstruction": "The specific question that needs answering"},
+        {"id": "status", "name": "Status", "type": "select", "options": ["open", "answered", "deferred"], "default": "open"},
+        {"id": "criticality", "name": "Criticality", "type": "select", "options": ["decision_critical", "important", "longer_term"], "aiInstruction": "decision_critical = must be resolved before committing further. important = should be resolved early. longer_term = can be resolved during execution."},
+        {"id": "answer", "name": "Answer", "type": "text", "aiInstruction": "The answer once resolved, with source and date"},
+        {"id": "answeredBy", "name": "Answered By", "type": "member"},
+        {"id": "notes", "name": "Notes", "type": "text", "aiInstruction": "Additional context or why this question matters"}
+      ],
+      "dashboardView": {"type": "table", "groupBy": "criticality", "sortBy": "status"}
+    },
+    "idea": {
+      "name": "Idea",
+      "icon": "lightbulb",
+      "description": "Raw ideas, instincts, and possibilities to return to later. Not all ideas become tasks — some are strategic bets, some are hypotheses, some are parking-lot items.",
+      "fields": [
+        {"id": "title", "name": "Title", "type": "text", "required": true, "aiInstruction": "Clear, concise name for this idea"},
+        {"id": "description", "name": "Description", "type": "text", "required": true, "aiInstruction": "What the idea is, why it matters, and any initial thinking on how it could work"},
+        {"id": "status", "name": "Status", "type": "select", "options": ["raw", "developing", "ready_to_execute", "parked", "promoted"], "default": "raw", "aiInstruction": "raw = just captured. developing = being refined. ready_to_execute = has enough shape to become tasks. parked = good idea, not now. promoted = converted to tasks."},
+        {"id": "priority", "name": "Priority", "type": "select", "options": ["high", "medium", "low", "unranked"], "default": "unranked"},
+        {"id": "dependencies", "name": "Dependencies", "type": "text", "aiInstruction": "What needs to be true before this idea can be executed?"},
+        {"id": "notes", "name": "Notes", "type": "text"}
+      ],
+      "dashboardView": {"type": "cards", "groupBy": "status", "sortBy": "priority"}
+    },
+    "diagram": {
+      "name": "Diagram",
+      "icon": "git-merge",
+      "description": "Visual diagrams — architecture, timelines, org charts, dependency maps",
+      "fields": [
+        {"id": "title", "name": "Title", "type": "text", "required": true, "aiInstruction": "Concise name for this diagram"},
+        {"id": "description", "name": "Description", "type": "text", "aiInstruction": "What this diagram shows and why it's useful"},
+        {"id": "mermaid", "name": "Mermaid Code", "type": "text", "required": true, "aiInstruction": "Valid Mermaid diagram syntax (graph, flowchart, sequence, gantt, etc.)"},
+        {"id": "category", "name": "Category", "type": "select", "options": ["process", "architecture", "timeline", "org-chart", "dependency", "other"]}
+      ],
+      "dashboardView": {"type": "diagram"}
+    },
+    "glossary": {
+      "name": "Glossary",
+      "icon": "book-open",
+      "description": "Terms, tools, concepts, and acronyms used in this project",
+      "fields": [
+        {"id": "term", "name": "Term", "type": "text", "required": true, "aiInstruction": "The term or acronym"},
+        {"id": "definition", "name": "Definition", "type": "text", "required": true, "aiInstruction": "Clear, concise explanation in the context of this project"},
+        {"id": "category", "name": "Category", "type": "select", "options": ["strategy", "tools", "architecture", "metrics", "process", "other"]},
+        {"id": "aliases", "name": "Aliases", "type": "text", "aiInstruction": "Alternative names or acronyms for the same thing"}
+      ],
+      "dashboardView": {"type": "table", "groupBy": "category", "sortBy": "term"}
+    }
+  },
+  "fieldTypes": {
+    "text": {"description": "Free text"},
+    "date": {"description": "ISO date (YYYY-MM-DD)"},
+    "select": {"description": "Single choice from options list"},
+    "multi_select": {"description": "Multiple choices from options list"},
+    "member": {"description": "Reference to a team member ID from team.json"},
+    "member[]": {"description": "Multiple team member ID references"},
+    "ref:<schema>": {"description": "Reference to a record ID in another schema"},
+    "ref:<schema>[]": {"description": "Multiple references to record IDs in another schema"},
+    "number": {"description": "Numeric value"},
+    "boolean": {"description": "True/false"}
+  }
+}

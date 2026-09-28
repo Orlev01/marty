@@ -37,6 +37,7 @@ marty/
   people/            ← relationship profiles (gitignored — your private state)
   memory/            ← persistent observations about how you operate (gitignored)
   tools/             ← deterministic helpers (transcript save, background memory pass)
+  console/           ← optional schema-driven project console (web view)
 ```
 
 **Composable by design.** Each file is small and single-purpose. You can revise any file without touching the others. Skills are loaded on demand, not at session start — Marty decides when to pull one.
@@ -130,6 +131,20 @@ To change the analogy, update `core/active-analogy.md` and `core/active-config.m
 By default, memory writes happen in-session (visible file edits you approve). If you want Marty to also catch memory-worthy moments automatically, a Stop hook can run a detached, cheap-model memory pass after each exchange — gated by a deny-by-default write judge, logged to `memory/memory-pass.log`, and never delaying the live conversation.
 
 It's off until you opt in: see "Hook setup" in `tools/README.md`, then set `memory_mode: auto` in `core/active-config.md`.
+
+---
+
+## Console (Optional)
+
+`console/` is a schema-driven, event-sourced project tracker with a generated web view. `schemas.json` defines your record types — each field carries an `aiInstruction` telling Claude how to populate it, so adding a new record type needs no code. State is built from append-only event files that Marty (or you, in the browser) can write.
+
+```bash
+cd console
+npm install
+npm run serve   # opens on http://localhost:8244
+```
+
+It starts with a generic pack (tasks, blockers, risks, decisions, open questions, ideas, diagrams, glossary) and a **Sources** tab that renders a read-only view of your `sources.md` and mission source registries — your markdown stays the single source of truth. Add or edit schemas in the browser; see `console/CLAUDE.md` for how Claude sessions read and write it.
 
 ---
 

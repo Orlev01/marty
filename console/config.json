@@ -1,0 +1,44 @@
+{
+  "project": {
+    "name": "My Project",
+    "type": "project",
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "currentPhase": "active"
+  },
+  "phases": [
+    {
+      "id": "active",
+      "name": "Active",
+      "order": 1,
+      "description": "Default phase — edit config.json to define your own phase model"
+    }
+  ],
+  "ceremonies": [],
+  "dataSources": [],
+  "eventActions": ["create", "update", "delete"],
+  "portfolio": {
+    "schema": "task",
+    "currentFocus": [],
+    "nextUp": []
+  },
+  "overview": {
+    "stats": [
+      {"label": "Tasks", "schema": "task", "count": "all"},
+      {"label": "Done", "schema": "task", "count": "status=done"},
+      {"label": "Blocked", "schema": "task", "count": "status=blocked"},
+      {"label": "Open Blockers", "schema": "blocker", "count": "status=open"},
+      {"label": "Open Risks", "schema": "risk", "count": "status!=resolved"},
+      {"label": "Open Questions", "schema": "open_question", "count": "status=open"},
+      {"label": "Ideas", "schema": "idea", "count": "all"}
+    ],
+    "sections": [
+      {"type": "focus", "title": "Current Focus"},
+      {"type": "team", "title": "Team"}
+    ],
+    "perPerson": {
+      "activeTasks": {"schema": "task", "filter": "status!=done", "ownerField": "owner"},
+      "blockers": {"schema": "blocker", "filter": "status=open", "ownerField": "owner"}
+    }
+  }
+}

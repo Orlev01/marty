@@ -1,0 +1,23 @@
+{
+  "name": "marty-console",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "rebuild": "tsx src/rebuild_state.ts",
+    "conflicts": "tsx src/detect_conflicts.ts",
+    "validate": "tsx src/validate_state.ts",
+    "docs": "tsx src/generate_docs.ts",
+    "guides": "tsx src/regenerate_guides.ts",
+    "dashboard": "tsx src/regenerate_dashboard.ts",
+    "serve": "lsof -ti :8244 | xargs kill -9 2>/dev/null; tsx src/server.ts --port 8244"
+  },
+  "dependencies": {
+    "express": "^5"
+  },
+  "devDependencies": {
+    "@types/express": "^5",
+    "@types/node": "^22",
+    "tsx": "^4",
+    "typescript": "^5"
+  }
+}
