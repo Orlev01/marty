@@ -1,0 +1,30 @@
+.DS_Store
+node_modules/
+
+# Project commands ship with the repo (overrides any global ignore of .claude/)
+!.claude/
+!.claude/commands/
+!.claude/commands/**
+.claude/settings.local.json
+.claude/plans/
+.claude/workflows/
+.claude/worktrees/
+
+# ── Personal coaching state ─────────────────────────────────────────
+# Your private data stays on your machine. If your fork is PRIVATE and
+# you want your coaching state versioned, you can remove these rules —
+# but never make a fork public while this data is in the history.
+people/*
+!people/README.md
+memory/*
+!memory/README.md
+missions/*
+!missions/README.md
+!missions/_template/
+ideas/*
+!ideas/README.md
+
+# Agent-bus conversation transcripts — durable on disk, not committed
+tools/agent-bus/transcripts/
+
+__pycache__/

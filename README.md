@@ -1,0 +1,153 @@
+# Marty
+
+A persistent AI professional coach built on Claude. Peer-to-peer, not assistant-to-user. Marty helps you make better decisions, see yourself more clearly, and grow into the leader you want to become.
+
+---
+
+## What It Is
+
+Marty is a structured Claude Code project — a directory of small, composable files that form a coaching system. When you open Claude Code in this directory, Marty reads your values, north star, active analogy, and current missions, then coaches you from that context across every session.
+
+It is not a chatbot. It is not a journaling tool. It is a peer-level voice that holds you to your own stated standards, pushes back when you're wrong, and tracks patterns in how you operate over time.
+
+---
+
+## How It Works
+
+```
+marty/
+  CLAUDE.md          ← the manifest; Claude reads this first
+  core/              ← who Marty is and how Marty coaches you
+    identity.md      ← the coaching relationship
+    values.md        ← your values, with audit hooks
+    north-star.md    ← the leader you're becoming
+    coaching-posture.md
+    operating-principles.md
+    active-analogy.md ← the current coaching frame (default: cornerman)
+    active-config.md  ← active missions, intensity level
+    session-start.md  ← what Marty does at the top of every session
+    skill-invocation.md
+    memory.md
+    mission-structure.md
+  skills/            ← coaching utilities (read on demand, not at startup)
+    inner/           ← self-management: accountability, failure loops, strategy
+    outer/           ← navigating others: stakeholder mapping, hard conversations
+    knowledge/       ← domain expertise: org design, AI rollout patterns, etc.
+  missions/          ← structured projects (gitignored — your private state)
+  people/            ← relationship profiles (gitignored — your private state)
+  memory/            ← persistent observations about how you operate (gitignored)
+  tools/             ← deterministic helpers (transcript save, background memory pass)
+```
+
+**Composable by design.** Each file is small and single-purpose. You can revise any file without touching the others. Skills are loaded on demand, not at session start — Marty decides when to pull one.
+
+**Private by default.** `people/`, `missions/`, and `memory/` are gitignored. Your coaching data stays on your machine. Nothing is synced.
+
+---
+
+## Getting Started
+
+### 1. Fork and clone this repo
+
+```bash
+git clone <your-fork>
+cd marty
+```
+
+### 2. Open Claude Code and let Marty onboard you
+
+```bash
+cd marty
+claude  # or open in VS Code with Claude Code extension
+```
+
+Claude reads `CLAUDE.md` automatically. On a fresh clone, Marty detects there's no memory yet and offers **`/onboard`** — a guided interview, one question at a time, that fills in your values, north star, and coaching contract, and teaches you the daily loop. You can paste a bio, LinkedIn, or self-review and Marty drafts answers for you to correct. Every answer is written to a file in front of you.
+
+### 3. Or fill in the core files by hand
+
+If you'd rather edit directly:
+
+| File | What to fill in |
+|------|----------------|
+| `core/values.md` | Your core values with audit hooks |
+| `core/north-star.md` | The professional you're becoming, your constraint, your permanent question |
+| `core/identity.md` | Already generic — replace `[client]` with your name |
+| `core/active-config.md` | Leave as-is until you create a mission |
+
+The other `core/` files (coaching posture, operating principles, session start, etc.) are ready to use as-is — they define how Marty coaches, not who you are.
+
+Optionally, replace the `[client]` placeholder with your name across the repo (Marty works fine either way):
+
+```bash
+grep -rl '\[client\]' --include='*.md' . | xargs sed -i '' 's/\[client\]/YourName/g'   # macOS
+# Linux: drop the '' after -i
+```
+
+### 4. Configure your data sources (optional)
+
+Edit `sources.md` to add your Slack channels, Linear projects, Google Calendar, and other feeds. Marty uses MCP tools to check these at session start via the `/reconcile` command.
+
+---
+
+## Missions
+
+A mission is a structured project — a goal Marty tracks with you over time. Create one when you're working on something significant (a career move, a complex initiative, a stretch goal).
+
+```
+missions/
+  my-mission/
+    mission.md      ← goal, success criteria, kill criteria
+    decisions.md    ← decisions made and why
+    open-threads.md ← active questions
+    context.md      ← background, constraints
+    stakeholders.md ← people involved (optional)
+```
+
+List active missions in `core/active-config.md`. Marty loads them at session start.
+
+See `core/mission-structure.md` for the full schema and end-of-mission handoff protocol.
+
+---
+
+## People Profiles (Optional)
+
+If you work with the same people repeatedly, you can create relationship profiles in `people/`. Marty uses these to give more calibrated advice when you're navigating a situation involving that person.
+
+These files are gitignored. They stay on your machine.
+
+---
+
+## The Active Analogy
+
+Marty always coaches through one active analogy at a time. The default is the **cornerman**: you're the fighter, Marty is between rounds — reading the fight, checking for cuts, giving one instruction before sending you back out.
+
+To change the analogy, update `core/active-analogy.md` and `core/active-config.md`. Marty can suggest a new analogy if the current one stops fitting.
+
+---
+
+## Background Memory Pass (Optional)
+
+By default, memory writes happen in-session (visible file edits you approve). If you want Marty to also catch memory-worthy moments automatically, a Stop hook can run a detached, cheap-model memory pass after each exchange — gated by a deny-by-default write judge, logged to `memory/memory-pass.log`, and never delaying the live conversation.
+
+It's off until you opt in: see "Hook setup" in `tools/README.md`, then set `memory_mode: auto` in `core/active-config.md`.
+
+---
+
+## Design Principles
+
+- **Inner before outer.** When a situation involves both self-management and managing others, Marty addresses the inner work first. No tactical tools until inner clarity is established.
+- **Single source of truth per concept.** A value lives in `values.md`, not duplicated in CLAUDE.md for context. If a change requires editing three files, the architecture is wrong.
+- **Persistent vs transient.** Core, people, and memory survive mission changes. Missions live and die with a specific project. End-of-mission handoff extracts lasting learnings into persistent memory.
+- **Skills evolve independently.** Core changes rarely. Skills change as you learn what works. The architecture supports skill revision without core revision.
+
+---
+
+## Privacy Note
+
+`people/`, `missions/`, `memory/`, and `ideas/` are gitignored and stay on your local machine. Keep your fork private if it contains sensitive coaching context or org observations.
+
+---
+
+## License
+
+MIT

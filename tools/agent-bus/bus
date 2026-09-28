@@ -1,0 +1,179 @@
+#!/usr/bin/env bash
+# agent-bus — a tiny message bus for two peer Claude Code agents.
+#
+#   transport : numbered message files in per-recipient inboxes + a human-readable log
+#   doorbell  : `bus wait` is a cheap background loop that exits the moment a message
+#               arrives. Run it with run_in_background; when it exits, the harness
+#               re-invokes your agent. Zero token cost while idle, no polling in-context.
+#   guard     : a shared turn counter stops the loop after MAX_TURNS so it can't run away.
+#
+# Usage:
+#   bus init                      # create the bus (also done lazily by send/wait)
+#   bus send  <from> <to> <text>  # send a message (text arg, or pipe via stdin)
+#   bus read  <me>                # print + consume unread messages for <me>
+#   bus wait  <me>                # block until a message for <me> arrives (run in background)
+#   bus stop                      # end the conversation for both agents
+#   bus status                    # show counters / unread / stopped
+#   bus export [dir]              # save the transcript as a dated .md (default: ./transcripts)
+#   bus reset                     # wipe the bus and start fresh
+#
+# Config (env):
+#   BUS_DIR      where live state lives       (default: /tmp/marty-bus)
+#   MAX_TURNS    total messages before stop   (default: 24)
+#   POLL_SECS    doorbell poll interval       (default: 2)
+#   TRANSCRIPTS  where exports are saved      (default: <script-dir>/transcripts)
+
+set -eu
+
+BUS_DIR="${BUS_DIR:-/tmp/marty-bus}"
+MAX_TURNS="${MAX_TURNS:-24}"
+POLL_SECS="${POLL_SECS:-2}"
+
+SELF_DIR="$(cd "$(dirname "$0")" && pwd)"
+TRANSCRIPTS="${TRANSCRIPTS:-$SELF_DIR/transcripts}"
+
+LOG="$BUS_DIR/conversation.log"
+SEQ="$BUS_DIR/seq"
+STOP="$BUS_DIR/STOP"
+
+die() { printf '%s\n' "$*" >&2; exit 1; }
+
+ensure() {
+  mkdir -p "$BUS_DIR"
+  [ -f "$SEQ" ] || printf '0' > "$SEQ"
+}
+
+inbox()  { printf '%s/inbox/%s' "$BUS_DIR" "$1"; }
+
+cmd_init() { ensure; echo "bus ready at $BUS_DIR  (max_turns=$MAX_TURNS)"; }
+
+cmd_send() {
+  ensure
+  local from="${1:-}" to="${2:-}"; shift 2 || true
+  [ -n "$from" ] && [ -n "$to" ] || die "usage: bus send <from> <to> <text>"
+  [ "$from" != "$to" ] || die "from and to must differ"
+
+  local body
+  if [ "$#" -gt 0 ]; then body="$*"; else body="$(cat)"; fi
+  [ -n "$body" ] || die "refusing to send an empty message"
+
+  [ -f "$STOP" ] && die "conversation is stopped (run 'bus reset' to start over)"
+
+  local n; n="$(cat "$SEQ")"; n=$((n + 1))
+  if [ "$n" -gt "$MAX_TURNS" ]; then
+    touch "$STOP"
+    die "turn limit reached ($MAX_TURNS). Conversation stopped. Tell your human."
+  fi
+  printf '%s' "$n" > "$SEQ"
+
+  local dir; dir="$(inbox "$to")"; mkdir -p "$dir"
+  local file; file="$dir/$(printf '%04d' "$n").md"
+  printf '%s' "$body" > "$file"
+
+  local ts; ts="$(date '+%Y-%m-%d %H:%M:%S')"
+  {
+    printf '\n=== turn %d | %s -> %s | %s ===\n' "$n" "$from" "$to" "$ts"
+    printf '%s\n' "$body"
+  } >> "$LOG"
+
+  echo "sent turn $n: $from -> $to  ($((MAX_TURNS - n)) turns left)"
+}
+
+cmd_read() {
+  ensure
+  local me="${1:-}"; [ -n "$me" ] || die "usage: bus read <me>"
+  local dir; dir="$(inbox "$me")"; mkdir -p "$dir" "$dir/.read"
+
+  shopt -s nullglob
+  local files=("$dir"/*.md)
+  shopt -u nullglob
+
+  if [ "${#files[@]}" -eq 0 ]; then
+    if [ -f "$STOP" ]; then echo "[CONVERSATION ENDED] no new messages. Stop and tell your human."
+    else echo "no new messages for $me"; fi
+    return 0
+  fi
+
+  local saw_done=0 f body
+  for f in "${files[@]}"; do
+    body="$(cat "$f")"
+    printf -- '----- %s -----\n%s\n' "$(basename "$f" .md)" "$body"
+    case "$body" in *"[DONE]"*) saw_done=1 ;; esac
+    mv "$f" "$dir/.read/"
+  done
+  echo "-------------------------"
+
+  if [ -f "$STOP" ] || [ "$saw_done" -eq 1 ]; then
+    echo "[CONVERSATION ENDED] your peer signalled done. Send a final 'bus send $me <peer> ...[DONE]' if you want the last word, then 'bus stop'. Do NOT re-arm 'bus wait'."
+  else
+    echo ">>> Your turn. Reply with: ./bus send $me <peer> \"...\"  then re-arm: ./bus wait $me (in background)."
+  fi
+}
+
+cmd_wait() {
+  ensure
+  local me="${1:-}"; [ -n "$me" ] || die "usage: bus wait <me>"
+  local dir; dir="$(inbox "$me")"; mkdir -p "$dir"
+  while :; do
+    [ -f "$STOP" ] && { echo ">>> conversation stopped. Run: ./bus read $me"; exit 0; }
+    shopt -s nullglob; local files=("$dir"/*.md); shopt -u nullglob
+    [ "${#files[@]}" -gt 0 ] && { echo ">>> new message for $me. Run: ./bus read $me"; exit 0; }
+    sleep "$POLL_SECS"
+  done
+}
+
+cmd_stop()   { ensure; touch "$STOP"; echo "conversation stopped. Any waiting agents will wake and exit."; }
+
+cmd_status() {
+  ensure
+  local n; n="$(cat "$SEQ")"
+  echo "bus:       $BUS_DIR"
+  echo "turns:     $n / $MAX_TURNS"
+  echo "stopped:   $([ -f "$STOP" ] && echo yes || echo no)"
+  local d
+  for d in "$BUS_DIR"/inbox/*/; do
+    [ -d "$d" ] || continue
+    shopt -s nullglob; local u=("$d"*.md); shopt -u nullglob
+    echo "unread $(basename "$d"): ${#u[@]}"
+  done
+}
+
+cmd_export() {
+  ensure
+  local dest="${1:-$TRANSCRIPTS}"
+  [ -s "$LOG" ] || die "nothing to export (no conversation at $LOG)"
+  mkdir -p "$dest"
+  local stamp; stamp="$(date '+%Y-%m-%d-%H%M%S')"
+  local out="$dest/$stamp.md"
+  local turns; turns="$(cat "$SEQ" 2>/dev/null || echo 0)"
+  local who
+  who="$(awk -F'\\|' '/^=== turn/{split($2,p," "); print p[1]; print p[3]}' "$LOG" | sort -u | grep -v '^$' | tr '\n' ' ')"
+  {
+    printf '# Agent-bus conversation\n\n'
+    printf -- '- Exported: %s\n' "$(date '+%Y-%m-%d %H:%M:%S')"
+    printf -- '- Participants: %s\n' "${who:-unknown}"
+    printf -- '- Turns: %s\n\n' "$turns"
+    printf -- '---\n'
+    cat "$LOG"
+  } > "$out"
+  echo "$out"
+}
+
+cmd_reset() { rm -rf "$BUS_DIR"; ensure; echo "bus reset: $BUS_DIR"; }
+
+main() {
+  local sub="${1:-}"; shift || true
+  case "$sub" in
+    init)   cmd_init "$@" ;;
+    send)   cmd_send "$@" ;;
+    read)   cmd_read "$@" ;;
+    wait)   cmd_wait "$@" ;;
+    stop)   cmd_stop "$@" ;;
+    status) cmd_status "$@" ;;
+    export) cmd_export "$@" ;;
+    reset)  cmd_reset "$@" ;;
+    *) die "usage: bus {init|send|read|wait|stop|status|export|reset}" ;;
+  esac
+}
+
+main "$@"
