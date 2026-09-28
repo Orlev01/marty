@@ -45,7 +45,7 @@ Memory writes happen in three ways:
 - An open thread meaningfully advances or changes
 - A commitment is made
 
-**End-of-session writes** are handled by the `/end-session` skill, not by per-turn accumulation.
+**End-of-session writes** are handled by the `/marty-end-session` skill, not by per-turn accumulation.
 
 ### Routing
 
@@ -119,7 +119,7 @@ Memory files grow over time. Without pruning, they bloat the session-start load 
 
 ### Enforcement
 
-`/thread-review` is the interactive enforcer of the rules in this section — size thresholds, Active/Resolved/Closed states, meetings-are-not-threads, single-home, knowledge-map sync. It classifies every active thread and decision, walks the flagged ones with [client], and executes the full graph edit (thread + knowledge-map row + pointers) on his call. Run it on demand; it no-ops cleanly when nothing is stale. The other writers (`/update`, `/reconcile`) only do incidental resolution-marking; `/thread-review` is the one that closes, collapses, distills, and re-homes.
+`/marty-thread-review` is the interactive enforcer of the rules in this section — size thresholds, Active/Resolved/Closed states, meetings-are-not-threads, single-home, knowledge-map sync. It classifies every active thread and decision, walks the flagged ones with [client], and executes the full graph edit (thread + knowledge-map row + pointers) on their call. Run it on demand; it no-ops cleanly when nothing is stale. The other writers (`/marty-update`, `/marty-reconcile`) only do incidental resolution-marking; `/marty-thread-review` is the one that closes, collapses, distills, and re-homes.
 
 ### Decision and thread lifecycle
 
@@ -137,9 +137,9 @@ At session start, Marty reads the **Active** section. Resolved/Closed sections e
 
 The Stop hook in `.claude/settings.local.json` runs `tools/memory_pass.py` after each exchange. Behaviour is gated by `core/active-config.md` Settings:
 
-- `memory_mode: manual` — the hook exits immediately; `/update` is the only checkpoint.
+- `memory_mode: manual` — the hook exits immediately; `/marty-update` is the only checkpoint.
 - `memory_mode: auto` — the hook detaches a worker (the conversation never waits on it). The worker extracts the last exchange from the session transcript with deterministic code, then runs a headless pass on `memory_pass_model` (Haiku-class) that applies the routing rules above and edits memory files directly — or writes nothing, which is the common case. Hard limits are code-enforced, not just prompted: a PreToolUse gate (`tools/memory_gate.py`, deny-by-default) restricts writes to the five memory files (symlink/traversal-safe), enforces append-only semantics (an Edit's old text must survive in its new text; a Write must extend the existing file), and caps each pass at 3 edits; one concurrent pass (lockfile). Meetings-are-not-threads and single-home remain prompt-enforced.
 
-Every run appends one line to `memory/memory-pass.log`. Session start glances at the log and mentions any writes since the last session, so nothing lands silently. `/update` remains available in both modes for an explicit, in-conversation checkpoint.
+Every run appends one line to `memory/memory-pass.log`. Session start glances at the log and mentions any writes since the last session, so nothing lands silently. `/marty-update` remains available in both modes for an explicit, in-conversation checkpoint.
 
 (The retired session-flags safety net — a hook that only flagged missed material for next-session triage — was replaced by this.)

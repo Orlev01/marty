@@ -1,6 +1,6 @@
-Flush unwritten state changes from this conversation to disk so parallel sessions can pick them up via `/sync`.
+Flush unwritten state changes from this conversation to disk so parallel sessions can pick them up via `/marty-sync`.
 
-This is NOT `/end-session`. The session continues after this. This is a mid-session checkpoint.
+This is NOT `/marty-end-session`. The session continues after this. This is a mid-session checkpoint.
 
 ## When to use
 
@@ -39,7 +39,7 @@ This is NOT `/end-session`. The session continues after this. This is a mid-sess
    - Active: title + `**Date:**` + `**Context:**` + `**Outcome:**` + `**What to watch:**`
    - Resolved: move to Resolved section as `| date | name | one-line outcome |`
 
-   **Bold markers** (controls what `/sitrep` surfaces):
+   **Bold markers** (controls what `/marty-sitrep` surfaces):
    - `**Open:**` — must-do, immediate
    - `**Open follow-up:**` — follow-up needed
    - `**Pending:**` — awaiting external response

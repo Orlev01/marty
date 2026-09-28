@@ -14,7 +14,7 @@ This list is the source of truth for which missions Marty loads at session start
 
 Read by Marty at session start and by `tools/` scripts (grep-able `key: value` lines — keep this format).
 
-- memory_mode: manual          # auto = Stop hook runs a detached background memory pass after each exchange (requires hook setup — see "Hook setup" in `tools/README.md`) · manual = /update and in-session writes only
+- memory_mode: manual          # auto = Stop hook runs a detached background memory pass after each exchange (requires hook setup — see "Hook setup" in `tools/README.md`) · manual = /marty-update and in-session writes only
 - memory_pass_model: claude-haiku-4-5
 - calendar_at_session_start: on   # off = skip the inline calendar check
 

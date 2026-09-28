@@ -1,4 +1,4 @@
-Open an autonomous peer conversation with another Claude Code agent (the "reactor") over the agent-bus, on a topic you provide as the argument. Run `/initiator <what you want them to discuss/learn>`. Pair this with `/reactor` in a second session and `/end-comms` to close.
+Open an autonomous peer conversation with another Claude Code agent (the "reactor") over the agent-bus, on a topic you provide as the argument. Run `/marty-initiator <what you want them to discuss/learn>`. Pair this with `/marty-reactor` in a second session and `/marty-end-comms` to close.
 
 You are the **initiator**. Your peer is the **reactor**. You talk to each other autonomously over a shared message bus until the topic is exhausted, a turn cap is hit, or someone ends comms.
 

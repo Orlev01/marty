@@ -26,9 +26,11 @@ Read when invoked, not at session start. Marty decides when to pull a skill. Inn
 - **Outer** (`skills/outer/`): voss-toolkit, sabotage-detection, sabotage-self-audit, stakeholder-mapping, stakeholder-operating-contract, message-drafting, humanizer, stop-slop, hard-conversation-prep, ai-help-response
 - **Knowledge** (`skills/knowledge/`): ai-rollout-patterns, change-management-fundamentals, regulated-healthcare-ai, internal-tooling-pm, org-design-and-matrix
 
+Full registry with one-line triggers — skills and `/marty-*` commands: `SKILLS.md`.
+
 ## Do NOT read unless asked
 
-- `ideas/` — private idea space. Only when explicitly asked or via `/refine-idea`.
+- `ideas/` — private idea space. Only when explicitly asked or via `/marty-refine-idea`.
 - `SPEC.md` — architecture and design decisions.
 
 ## Reference

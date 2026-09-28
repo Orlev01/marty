@@ -1,4 +1,4 @@
-Onboard a new person into a fresh Marty clone: interview them one question at a time, seed the personal files, and teach the daily loop. Run: `/onboard` (full) or `/onboard {section}` to redo one section (`values` | `north-star` | `contract` | `sources`).
+Onboard a new person into a fresh Marty clone: interview them one question at a time, seed the personal files, and teach the daily loop. Run: `/marty-onboard` (full) or `/marty-onboard {section}` to redo one section (`values` | `north-star` | `contract` | `sources`).
 
 ## When this runs
 
@@ -46,7 +46,7 @@ Name, role, org, and what the work actually is right now — their words.
 
 ### 5. The first mission
 
-"What's the one initiative that matters most right now?" If they name one, run `/new-mission {name}`, then offer commitment-framing for goal / success / kill / payoff. If they'd rather wait, skip — Marty works without a mission and the offer resurfaces later.
+"What's the one initiative that matters most right now?" If they name one, run `/marty-new-mission {name}`, then offer commitment-framing for goal / success / kill / payoff. If they'd rather wait, skip — Marty works without a mission and the offer resurfaces later.
 
 ### 6. Sources and settings
 
@@ -56,11 +56,11 @@ Check which connectors this environment actually has (calendar, Slack, Notion �
 
 One line each:
 - Session start is automatic — Marty reads memory and opens.
-- `/update` — checkpoint this conversation's state to files.
-- `/sitrep [mission]` — what you owe, ranked.
-- `/process-transcript` — after any meeting, paste or point at the transcript.
-- `/thread-review` — hygiene; run when threads feel stale.
-- `/skills` — the full index.
+- `/marty-update` — checkpoint this conversation's state to files.
+- `/marty-sitrep [mission]` — what you owe, ranked.
+- `/marty-process-transcript` — after any meeting, paste or point at the transcript.
+- `/marty-thread-review` — hygiene; run when threads feel stale.
+- `/marty-skills` — the full index.
 
 ### 8. Close
 

@@ -8,7 +8,7 @@ What Marty does at the beginning of each session, before responding to [client].
 
 ### First run
 
-If `memory/me.md` does not exist, this is a fresh clone, not a working session: skip the sequence below, introduce Marty in two sentences, and offer `/onboard`. Do not invent memory or read personal files that aren't there.
+If `memory/me.md` does not exist, this is a fresh clone, not a working session: skip the sequence below, introduce Marty in two sentences, and offer `/marty-onboard`. Do not invent memory or read personal files that aren't there.
 
 ### Persistent layer
 
@@ -20,12 +20,12 @@ If `memory/me.md` does not exist, this is a fresh clone, not a working session: 
 6. **Source staleness check (inline — fast):** for each active mission that has `sources/state.md`, compare its newest pull timestamps against the current time.
 
    - Any source more than 48 hours stale:
-     > "{mission} sources are [N] days stale (last pulled [date]). Run `/reconcile {mission}` to catch up."
+     > "{mission} sources are [N] days stale (last pulled [date]). Run `/marty-reconcile {mission}` to catch up."
    - State file missing or empty:
-     > "No source-state for {mission}. Run `/reconcile {mission}` to establish baseline."
+     > "No source-state for {mission}. Run `/marty-reconcile {mission}` to establish baseline."
    - Everything fresh → say nothing.
 
-   Do not scan sources inline. Do not launch a background agent. `/reconcile` does all pulling, cross-referencing, and writing.
+   Do not scan sources inline. Do not launch a background agent. `/marty-reconcile` does all pulling, cross-referencing, and writing.
 
 7. **Calendar check (inline — informs opening mode; skip if `calendar_at_session_start: off`):**
 
@@ -45,7 +45,7 @@ If `memory/me.md` does not exist, this is a fresh clone, not a working session: 
    - `memory/open-threads.md` — **Active section only.** Closed threads are one-line summaries at the bottom; skip them unless the session needs historical context.
    - `knowledge-map.md` if it exists — note the workstream-to-file mappings. Do NOT pre-load any linked files. When the conversation enters a mapped workstream, read the linked file(s) before answering.
    - `stakeholders/` directory if it exists — mission-bound people
-   - `sources/registry.md` if it exists — the mission's external-source registry (Slack / Notion / Google Docs to pull from). Do NOT fetch inline. `/reconcile` refreshes `sources/pulled/` and proposes thread/decision updates on demand.
+   - `sources/registry.md` if it exists — the mission's external-source registry (Slack / Notion / Google Docs to pull from). Do NOT fetch inline. `/marty-reconcile` refreshes `sources/pulled/` and proposes thread/decision updates on demand.
    - `evidence/README.md` if it exists — the manifest of source documents. Read the index only. Do NOT read the underlying documents unless [client] asks or until the conversation calls for it (in which case, propose reading and confirm before pulling in).
 
 ## Opening

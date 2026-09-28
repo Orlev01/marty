@@ -61,7 +61,7 @@ cd marty
 claude  # or open in VS Code with Claude Code extension
 ```
 
-Claude reads `CLAUDE.md` automatically. On a fresh clone, Marty detects there's no memory yet and offers **`/onboard`** — a guided interview, one question at a time, that fills in your values, north star, and coaching contract, and teaches you the daily loop. You can paste a bio, LinkedIn, or self-review and Marty drafts answers for you to correct. Every answer is written to a file in front of you.
+Claude reads `CLAUDE.md` automatically. On a fresh clone, Marty detects there's no memory yet and offers **`/marty-onboard`** — a guided interview, one question at a time, that fills in your values, north star, and coaching contract, and teaches you the daily loop. You can paste a bio, LinkedIn, or self-review and Marty drafts answers for you to correct. Every answer is written to a file in front of you.
 
 ### 3. Or fill in the core files by hand
 
@@ -85,7 +85,7 @@ grep -rl '\[client\]' --include='*.md' . | xargs sed -i '' 's/\[client\]/YourNam
 
 ### 4. Configure your data sources (optional)
 
-Edit `sources.md` to add your Slack channels, Linear projects, Google Calendar, and other feeds. Marty uses MCP tools to check these at session start via the `/reconcile` command.
+Edit `sources.md` to add your Slack channels, Linear projects, Google Calendar, and other feeds. Marty uses MCP tools to check these at session start via the `/marty-reconcile` command.
 
 ---
 

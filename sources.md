@@ -20,8 +20,8 @@ Relationships that outlive the current mission.
 
 ## How Marty Uses This
 
-**Slack sources** are handled by `/reconcile`. At session start, Marty checks the active mission's
-`sources/state.md` for staleness and suggests running `/reconcile` if needed. The skill scans channels,
+**Slack sources** are handled by `/marty-reconcile`. At session start, Marty checks the active mission's
+`sources/state.md` for staleness and suggests running `/marty-reconcile` if needed. The skill scans channels,
 cross-references against open threads and decisions, and writes updates directly.
 
 **Calendar** is checked inline at session start (see `core/session-start.md`).

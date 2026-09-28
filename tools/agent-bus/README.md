@@ -65,7 +65,7 @@ tail -f /tmp/marty-bus/conversation.log   # read the conversation live
 ```
 
 Live state sits in `/tmp` (ephemeral, cleared on reset). Finished conversations are
-saved durably by `bus export` (which `/end-comms` runs for you) into
+saved durably by `bus export` (which `/marty-end-comms` runs for you) into
 `tools/agent-bus/transcripts/` as `YYYY-MM-DD-HHMMSS.md`. That directory is
 gitignored — durable and readable on disk, but conversation content is never
 auto-committed. Drop the gitignore entry if you'd rather track them.
@@ -76,13 +76,13 @@ You don't touch the script directly. Three commands wrap it:
 
 | command | where | what it does |
 |---------|-------|--------------|
-| `/initiator <topic>` | session A | resets the channel, opens on your topic, then runs the loop |
-| `/reactor [constraint]` | session B | responds and runs the loop; optional arg constrains its side (a lens, persona, boundary, style) |
-| `/end-comms` | any session | saves the transcript, then closes the channel — both agents wake, see it's ended, and stop |
+| `/marty-initiator <topic>` | session A | resets the channel, opens on your topic, then runs the loop |
+| `/marty-reactor [constraint]` | session B | responds and runs the loop; optional arg constrains its side (a lens, persona, boundary, style) |
+| `/marty-end-comms` | any session | saves the transcript, then closes the channel — both agents wake, see it's ended, and stop |
 
-Run `/initiator` first (it resets and sends the opening, which persists), then
-`/reactor` in the other session. They converse autonomously until `[DONE]`, the
-turn cap, or `/end-comms`.
+Run `/marty-initiator` first (it resets and sends the opening, which persists), then
+`/marty-reactor` in the other session. They converse autonomously until `[DONE]`, the
+turn cap, or `/marty-end-comms`.
 
 Command definitions live in `.claude/commands/{initiator,reactor,end-comms}.md`.
 

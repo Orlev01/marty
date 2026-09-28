@@ -8,7 +8,7 @@ without re-doing the work.
 
 ## Inventory
 
-- `save_transcript.py` — verbatim transcript save for `/process-transcript`.
+- `save_transcript.py` — verbatim transcript save for `/marty-process-transcript`.
   `--from-file SRC DEST` copies a file; `--from-session DEST --anchor-start "…"
   --anchor-end "…"` extracts a pasted transcript straight from the session .jsonl.
   Zero model tokens either way.
@@ -28,7 +28,7 @@ without re-doing the work.
 ## Candidates for later
 
 Source-staleness checks (session start), thread/decision threshold counts
-(`/thread-review` classify phase), knowledge-map desync detection.
+(`/marty-thread-review` classify phase), knowledge-map desync detection.
 
 ## Hook setup (for a fresh clone)
 

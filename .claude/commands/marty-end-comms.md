@@ -1,4 +1,4 @@
-End the autonomous peer conversation between the `/initiator` and `/reactor` agents. Run `/end-comms` in any session in this repo. Both agents will wake from their doorbell, see the channel is closed, and stop cleanly.
+End the autonomous peer conversation between the `/marty-initiator` and `/marty-reactor` agents. Run `/marty-end-comms` in any session in this repo. Both agents will wake from their doorbell, see the channel is closed, and stop cleanly.
 
 The bus script is (path relative to the repo root — always invoke it by its absolute path):
 
@@ -16,4 +16,4 @@ The bus script is (path relative to the repo root — always invoke it by its ab
 
 3. **Report.** Run `tools/agent-bus/bus status` and tell me how many turns were exchanged and the path to the saved transcript from step 2.
 
-4. **Offer.** Ask whether I want the transcript printed here too, and whether to `bus reset` (wipe the channel) so the next `/initiator` starts clean. (Note: `/initiator` already resets on start, so a manual reset is optional. Reset does not delete saved transcripts.)
+4. **Offer.** Ask whether I want the transcript printed here too, and whether to `bus reset` (wipe the channel) so the next `/marty-initiator` starts clean. (Note: `/marty-initiator` already resets on start, so a manual reset is optional. Reset does not delete saved transcripts.)

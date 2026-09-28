@@ -1,4 +1,4 @@
-Refresh a mission from its registered sources: pull the latest, snapshot it, cross-reference against the mission's own threads and decisions, and propose updates. The general refresh engine for ANY mission; each mission's specifics are bolted on via its own `config/reconcile.md`, never hardcoded here. Run on demand: `/reconcile [mission] [--since 7d] [--no-update] [--dry-run]`.
+Refresh a mission from its registered sources: pull the latest, snapshot it, cross-reference against the mission's own threads and decisions, and propose updates. The general refresh engine for ANY mission; each mission's specifics are bolted on via its own `config/marty-reconcile.md`, never hardcoded here. Run on demand: `/marty-reconcile [mission] [--since 7d] [--no-update] [--dry-run]`.
 
 ## Arguments
 
@@ -6,12 +6,12 @@ Refresh a mission from its registered sources: pull the latest, snapshot it, cro
 |-----------|--------|---------|
 | target | a mission name, or `--all` | the active mission from `core/active-config.md`; if more than one is active and none given, ask which |
 | `--since` | `1d` `7d` `2w` `1m` | off; overrides every source's registry lookback for this run |
-| `--no-update` | flag | pull + snapshot only; skip the cross-reference and propose phases (this is the old `/reconcile` behaviour) |
+| `--no-update` | flag | pull + snapshot only; skip the cross-reference and propose phases (this is the old `/marty-reconcile` behaviour) |
 | `--dry-run` | flag | run everything, write nothing, return the manifest |
 
 ## Phase 1 — Resolve + load
 
-Read `core/active-config.md`; resolve the target mission(s). For each, read (its own files only): `sources/registry.md`, `sources/state.md`, `memory/open-threads.md` (Active), `memory/decisions.md` (Active), and **`config/reconcile.md` if it exists** — the mission's extensions (extra evidence types, registries to match, no-close list, post-steps). `--all` repeats the whole protocol per mission, each fully scoped to its own files.
+Read `core/active-config.md`; resolve the target mission(s). For each, read (its own files only): `sources/registry.md`, `sources/state.md`, `memory/open-threads.md` (Active), `memory/decisions.md` (Active), and **`config/marty-reconcile.md` if it exists** — the mission's extensions (extra evidence types, registries to match, no-close list, post-steps). `--all` repeats the whole protocol per mission, each fully scoped to its own files.
 
 ## Phase 2 — Pull + snapshot (multi-source)
 
@@ -26,7 +26,7 @@ Write a snapshot per source to `sources/pulled/{slug}.md` (overwrite; distilled 
 
 ## Phase 3 — Extract evidence
 
-From the pulled content, extract structured items: `who` / `what` (concrete) / `when` / `source` / `evidence_type`. Base types: `resolution`, `advancement`, `new_signal`, `decision`, `blocker`, `request`. The mission's `config/reconcile.md` may add types. Discard bot noise, acknowledgements, and anything older than Oldest.
+From the pulled content, extract structured items: `who` / `what` (concrete) / `when` / `source` / `evidence_type`. Base types: `resolution`, `advancement`, `new_signal`, `decision`, `blocker`, `request`. The mission's `config/marty-reconcile.md` may add types. Discard bot noise, acknowledgements, and anything older than Oldest.
 
 ## Phase 4 — Cross-reference (the engine)
 
@@ -35,7 +35,7 @@ Match each item against the mission's Active threads/decisions. Build a name map
 - **propose** — person+topic match, any decision, or a mission-extension match (e.g. a registry the mission's config declares). Decisions are always propose.
 - **note** — weak topic match, no anchor.
 
-Honor the **no-close list** (update-only threads; the mission's `config/reconcile.md` supplies its list — default is none). Be conservative: a missed match is cheap (stays stale till next run), a wrong close is expensive (hides live work) — demote when unsure. Produce a change manifest (`confidence, file, thread, action, current_text, proposed_change, evidence, reasoning`) and an `UNMATCHED` list.
+Honor the **no-close list** (update-only threads; the mission's `config/marty-reconcile.md` supplies its list — default is none). Be conservative: a missed match is cheap (stays stale till next run), a wrong close is expensive (hides live work) — demote when unsure. Produce a change manifest (`confidence, file, thread, action, current_text, proposed_change, evidence, reasoning`) and an `UNMATCHED` list.
 
 ## Phase 5 — Write (propose-first)
 
@@ -47,7 +47,7 @@ Batch by file (one pass per file).
 
 ## Phase 6 — Mission extensions
 
-If `config/reconcile.md` declares post-steps (e.g. a roadmap check, an exec-tracker sync), run them now following that file. Skip silently if there are none.
+If `config/marty-reconcile.md` declares post-steps (e.g. a roadmap check, an exec-tracker sync), run them now following that file. Skip silently if there are none.
 
 ## Phase 7 — Report
 
@@ -63,4 +63,4 @@ Source state: updated {N}, auth-failed {list}
 - Propose-first for anything uncertain; never auto-close a no-close thread; never delete content (strikethrough).
 - Cite evidence on every write. Conservative by default.
 - A data/hygiene pipeline, not coaching — do not load identity or coaching files. Honor `core/memory.md`.
-- Mission-specific machinery (registry matching, roadmaps, exec trackers) lives in that mission's `config/reconcile.md`, never in this command. This keeps one engine across all missions.
+- Mission-specific machinery (registry matching, roadmaps, exec trackers) lives in that mission's `config/marty-reconcile.md`, never in this command. This keeps one engine across all missions.

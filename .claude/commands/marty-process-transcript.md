@@ -1,4 +1,4 @@
-Process a meeting transcript into the right mission: route it, classify it, save the raw, write the analysis, and update that mission's threads and people. Mission-agnostic; a mission's own classification taxonomy, signals, and post-steps live in its `config/process-transcript.md`. Run: `/process-transcript [mission]`.
+Process a meeting transcript into the right mission: route it, classify it, save the raw, write the analysis, and update that mission's threads and people. Mission-agnostic; a mission's own classification taxonomy, signals, and post-steps live in its `config/marty-process-transcript.md`. Run: `/marty-process-transcript [mission]`.
 
 ## Step 1 — Locate the transcript
 Find the most recent transcript in the conversation. If none, ask [client] to paste one. Extract participants, date, approximate duration.
@@ -9,7 +9,7 @@ Find the most recent transcript in the conversation. If none, ask [client] to pa
 - If it fits no active mission, say so and ask (new mission, or out of scope).
 
 ## Step 3 — Load routed-mission context
-Read: `people/index.md` (and each participant's file if it exists), `missions/{m}/memory/open-threads.md` (Active), `missions/{m}/knowledge-map.md`, and **`missions/{m}/config/process-transcript.md` if it exists** — the mission's type taxonomy, question sets, signal taxonomy, and post-steps. No extension → use the base behaviour below.
+Read: `people/index.md` (and each participant's file if it exists), `missions/{m}/memory/open-threads.md` (Active), `missions/{m}/knowledge-map.md`, and **`missions/{m}/config/marty-process-transcript.md` if it exists** — the mission's type taxonomy, question sets, signal taxonomy, and post-steps. No extension → use the base behaviour below.
 
 ## Step 4 — Classify the type
 Base types (mission-agnostic): `1on1`, `group`, `build` (technical/working session), `discovery` (first substantive meeting with a new stakeholder), `advisory`, `external`. If the mission extension defines its own taxonomy and filename prefixes, use those instead.
@@ -53,7 +53,7 @@ For each participant with a `people/` file, update only what changed: relationsh
 **Meetings are NOT threads.** Route each live follow-up into the workstream thread it belongs to (bold-marked, with owner). If none fits and a real workstream has emerged, create a thread named for the work (respect the 15-active cap). Add one Closed one-liner for the meeting. Sync `knowledge-map.md` on any thread add/rename/merge/close.
 
 ## Step 11 — Mission extensions (post-steps)
-If `config/process-transcript.md` defines post-steps (e.g. signal-log extraction), run them following that file. Otherwise skip.
+If `config/marty-process-transcript.md` defines post-steps (e.g. signal-log extraction), run them following that file. Otherwise skip.
 
 ## Step 12 — Confirm
 Tell [client] which mission it filed under, what was written and where, and the one or two things that actually matter. Name any action [client] must take.

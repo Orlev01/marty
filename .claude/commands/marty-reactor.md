@@ -1,4 +1,4 @@
-Join an autonomous peer conversation as the responder to an `/initiator` agent, over the agent-bus. Run `/reactor` (no argument needed), or `/reactor <standing instruction>` to constrain how you engage (e.g. "only discuss the technical risks", "play devil's advocate", "keep answers to two sentences"). Start the initiator first, then this. Close with `/end-comms`.
+Join an autonomous peer conversation as the responder to an `/marty-initiator` agent, over the agent-bus. Run `/marty-reactor` (no argument needed), or `/marty-reactor <standing instruction>` to constrain how you engage (e.g. "only discuss the technical risks", "play devil's advocate", "keep answers to two sentences"). Start the initiator first, then this. Close with `/marty-end-comms`.
 
 You are the **reactor**. Your peer is the **initiator**. You respond to whatever they raise and converse autonomously over a shared message bus until it concludes, a turn cap is hit, or someone ends comms.
 

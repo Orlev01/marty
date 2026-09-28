@@ -30,3 +30,24 @@
 - **internal-tooling-pm** — [client] is running or contributing to internal tooling work — platform features, developer experience, internal tools for employees. Questions like "how do I prioritise the platform backlog," "why is adoption low."
 - **org-design-and-matrix** — [client] is operating in a matrix structure, navigating influence without authority, or trying to understand why organisational dynamics create friction.
 - **regulated-healthcare-ai** — [client] is navigating AI deployment touching clinical data, patient information, healthcare regulations, or multi-jurisdiction compliance.
+
+## commands
+
+Slash commands — invoke directly in Claude Code. Full table with usage notes: `.claude/commands/README.md`.
+
+- **/marty-onboard** — First-run interview for a fresh clone: seeds your values, north star, coaching contract, and memory files one question at a time.
+- **/marty-sitrep** — Quick situational awareness: active missions, top actions ranked by urgency, and who's waiting on whom. Read-only.
+- **/marty-process-transcript** — After a meeting: route the transcript to the right mission, save the raw verbatim, write the analysis, update threads and people.
+- **/marty-sync** — Re-read mutable state from disk to pick up changes made by parallel sessions. Read-only.
+- **/marty-update** — Flush unwritten state changes from this conversation to disk so parallel sessions can pick them up.
+- **/marty-new-mission** — Scaffold a new mission from the template and register it in `core/active-config.md`.
+- **/marty-end-mission** — End-of-mission handoff: promote persistent learnings, decisions, threads, and people, then archive.
+- **/marty-reconcile** — Refresh a mission from its registered sources: pull, snapshot, cross-reference, propose updates.
+- **/marty-thread-review** — Interactive, graph-aware hygiene pass over a mission's ephemeral memory.
+- **/marty-end-session** — Post-chat memory write protocol: route notable items to the right memory files before closing.
+- **/marty-refine-idea** — Work an idea from `ideas/` through coaching: clarify, stress test, connect, land on one next action.
+- **/marty-skills** — Display this registry, organized by category.
+- **/marty-foundations-first-explainer** — Teach any topic bottom-up, building each concept on the one before it.
+- **/marty-initiator** — Open an autonomous peer conversation with a second Claude Code agent over the agent-bus.
+- **/marty-reactor** — Join that conversation as the responder.
+- **/marty-end-comms** — End the peer conversation, save the transcript, close the channel.

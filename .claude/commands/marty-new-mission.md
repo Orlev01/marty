@@ -1,4 +1,4 @@
-Scaffold a new mission from the template, register it everywhere Marty needs it, and hand back the setup TODOs. Run on demand: `/new-mission {name}`.
+Scaffold a new mission from the template, register it everywhere Marty needs it, and hand back the setup TODOs. Run on demand: `/marty-new-mission {name}`.
 
 ## Arguments
 
@@ -28,7 +28,7 @@ Files created: `mission.md`, `operating-mode.md`, `knowledge-map.md`, `sources/r
 
 ### 3. Register the mission
 
-Add the mission to `core/active-config.md` under **Active Missions**, as a new line: `- ` + backtick + `missions/{slug}/` + backtick + ` — Defining`. This is the one registration point Marty needs — session-start and the generic commands (`/sync`, `/reconcile`, `/update`, `/end-mission`) resolve the active list from this file. Nothing else hardcodes the mission list, so no other file needs editing to make the mission exist.
+Add the mission to `core/active-config.md` under **Active Missions**, as a new line: `- ` + backtick + `missions/{slug}/` + backtick + ` — Defining`. This is the one registration point Marty needs — session-start and the generic commands (`/marty-sync`, `/marty-reconcile`, `/marty-update`, `/marty-end-mission`) resolve the active list from this file. Nothing else hardcodes the mission list, so no other file needs editing to make the mission exist.
 
 ### 4. Set the phase
 
@@ -47,7 +47,7 @@ Setup TODOs — fill in when ready, leave any blank:
 3. Kill criteria (+ dates)                      -> mission.md ## Kill Criteria
 4. Payoff loop                                  -> mission.md ## Payoff Loop
 5. Key stakeholders (link people/ files)        -> mission.md ## Key Stakeholders
-6. Sources (Slack / Notion / Google Docs to pull) -> sources/registry.md  (refresh with /reconcile)
+6. Sources (Slack / Notion / Google Docs to pull) -> sources/registry.md  (refresh with /marty-reconcile)
 7. Operating posture + coaching intensity       -> operating-mode.md
 
 Optional, only if this mission needs them:
@@ -68,5 +68,5 @@ Offer to fill any TODOs now via the `commitment-framing` inner skill, or to regi
 - Overwrite an existing mission, or touch any other mission's files.
 - Fill in KPIs, workstreams, stakeholders, or sources — those are the user's TODOs.
 - Create `people/` files (people are persistent and shared; add them separately when relevant).
-- Run `/reconcile`, `/sitrep`, or scan any source. Creation only.
-- Archive or deactivate anything. Removal/close is `/end-mission`.
+- Run `/marty-reconcile`, `/marty-sitrep`, or scan any source. Creation only.
+- Archive or deactivate anything. Removal/close is `/marty-end-mission`.

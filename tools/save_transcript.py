@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic transcript saver for /process-transcript.
+"""Deterministic transcript saver for /marty-process-transcript.
 
 No model tokens are spent copying transcript text. Two modes:
 

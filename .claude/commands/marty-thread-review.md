@@ -100,13 +100,13 @@ Apply the chosen verb as one visible write per item. Every close/move also settl
 - **Outreach Closed line.** When converting a meeting, add its one-liner to the open-threads Closed table with a pointer to the `outreach/` file.
 - **Promotion.** When promoting, write to the persistent file and leave a one-line pointer in the mission, or remove the mission copy if the persistent home is now sole.
 
-Write conventions (identical to `/update` and `/reconcile`):
+Write conventions (identical to `/marty-update` and `/marty-reconcile`):
 - **Never delete content on a collapse.** Resolved threads move to the Closed table as `| title | one-line outcome + pointer |`. Deletion is the separate `delete` verb, used rarely and only after showing the text.
 - Bold markers control sitrep visibility; carry live markers into wherever the item lands.
 - Batch by file: collect all edits for one file, apply in one pass.
 - Cite nothing external here — this is internal hygiene, not evidence reconciliation.
 
-**No-close list** (update-or-distill only, never collapse/delete — from `core/memory.md` and `/reconcile`): the long-horizon threads named in `core/memory.md`, and any thread with live sub-items still open. Distilling these is fine; closing them is not.
+**No-close list** (update-or-distill only, never collapse/delete — from `core/memory.md` and `/marty-reconcile`): the long-horizon threads named in `core/memory.md`, and any thread with live sub-items still open. Distilling these is fine; closing them is not.
 
 ## Phase 6 — Invariants + report
 
@@ -131,7 +131,7 @@ Knowledge-map: in sync | [rows still off].
 
 ## What this does NOT do
 
-- Scan Slack or any external source — that's `/reconcile`. This works only on what's already on disk.
+- Scan Slack or any external source — that's `/marty-reconcile`. This works only on what's already on disk.
 - Touch the mission's tracked artifacts (roadmaps, dependency maps) or any external tracker.
 - Write to `me.md` or auto-memory `MEMORY.md`.
 - Close a no-close-list thread, or delete anything without showing it first.

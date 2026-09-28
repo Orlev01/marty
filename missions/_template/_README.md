@@ -1,6 +1,6 @@
 # Mission Template
 
-Copy this directory to `missions/{mission-name}/` to start a new mission (or run `/new-mission {name}`), then delete what you don't need. Depth scales: a light mission is just `mission.md` + `memory/`.
+Copy this directory to `missions/{mission-name}/` to start a new mission (or run `/marty-new-mission {name}`), then delete what you don't need. Depth scales: a light mission is just `mission.md` + `memory/`.
 
 ## What gets built automatically on creation
 
@@ -40,4 +40,4 @@ missions/{name}/
   sources/   registry.md  state.md  pulled/           external-source pipeline
 ```
 
-Keep sources refreshed with `/reconcile`. Everything else groups under `artifacts/`, `stakeholders/`, `evidence/`, `outreach/`, `config/`, `ideas/` as the mission grows.
+Keep sources refreshed with `/marty-reconcile`. Everything else groups under `artifacts/`, `stakeholders/`, `evidence/`, `outreach/`, `config/`, `ideas/` as the mission grows.

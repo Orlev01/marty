@@ -50,7 +50,7 @@ missions/{name}/
   ideas/             mission-scoped ideas
 ```
 
-Only `mission.md`, `operating-mode.md`, and `knowledge-map.md` sit at the mission root; everything else groups into a directory. Living reasoning-state (threads, decisions) is `memory/`; everything about external sources (what to pull, watermarks, snapshots) is `sources/`; produced docs are `artifacts/`. `missions/_template/` is the copyable skeleton and holds the creation protocol (`_README.md`): what `/new-mission` builds automatically and what it must ask [client] before a mission goes Active.
+Only `mission.md`, `operating-mode.md`, and `knowledge-map.md` sit at the mission root; everything else groups into a directory. Living reasoning-state (threads, decisions) is `memory/`; everything about external sources (what to pull, watermarks, snapshots) is `sources/`; produced docs are `artifacts/`. `missions/_template/` is the copyable skeleton and holds the creation protocol (`_README.md`): what `/marty-new-mission` builds automatically and what it must ask [client] before a mission goes Active.
 
 ## Missions vs Open Threads
 
@@ -72,9 +72,9 @@ These are separate from the persistent memory in `memory/`, which holds career-l
 Each mission has a `sources/` directory — its external-context pipeline:
 - `sources/registry.md` — the sources to pull from. Each entry: a type (Slack channel / Notion page / Google Doc), an id, a lookback window (how far back to read on each pull), and look-for guidance.
 - `sources/state.md` — per-source watermarks (last-pulled timestamps).
-- `sources/pulled/` — the latest snapshot per source, written by `/reconcile`.
+- `sources/pulled/` — the latest snapshot per source, written by `/marty-reconcile`.
 
-Run `/reconcile [--since 7d]` to refresh: it pulls each registered source over its lookback window, snapshots them to `pulled/`, updates the watermarks, then cross-references against the mission's threads/decisions and proposes updates (propose-first). `--no-update` does pull + snapshot only. Mission-specific reconcile behaviour (extra registries, post-steps like a roadmap or exec-tracker sync) lives in `config/reconcile.md`.
+Run `/marty-reconcile [--since 7d]` to refresh: it pulls each registered source over its lookback window, snapshots them to `pulled/`, updates the watermarks, then cross-references against the mission's threads/decisions and proposes updates (propose-first). `--no-update` does pull + snapshot only. Mission-specific reconcile behaviour (extra registries, post-steps like a roadmap or exec-tracker sync) lives in `config/marty-reconcile.md`.
 
 ## Mission Evidence
 

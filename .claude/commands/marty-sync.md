@@ -6,7 +6,7 @@ Re-read mutable state from disk to pick up changes made by parallel sessions.
 - Marty is about to reference open threads, decisions, or mission state and [client] has mentioned working with another Marty
 - [client] switches back to this session after working in a parallel one
 
-**Pair with `/update`:** If the other session advanced state in conversation but didn't write to disk, run `/update` there first — otherwise there's nothing new for `/sync` to find.
+**Pair with `/marty-update`:** If the other session advanced state in conversation but didn't write to disk, run `/marty-update` there first — otherwise there's nothing new for `/marty-sync` to find.
 
 ## Protocol
 
