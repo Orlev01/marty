@@ -17,6 +17,8 @@ It is not a chatbot. It is not a journaling tool. It is a peer-level voice that 
 ```
 marty/
   CLAUDE.md          ← the manifest; Claude reads this first
+  SKILLS.md          ← full registry: 22 skills + 16 commands, with triggers
+  sources.md         ← persistent data-source registry (template)
   core/              ← who Marty is and how Marty coaches you
     identity.md      ← the coaching relationship
     values.md        ← your values, with audit hooks
@@ -24,25 +26,28 @@ marty/
     coaching-posture.md
     operating-principles.md
     active-analogy.md ← the current coaching frame (default: cornerman)
-    active-config.md  ← active missions, intensity level
+    active-config.md  ← active missions, settings, intensity level
     session-start.md  ← what Marty does at the top of every session
     skill-invocation.md
     memory.md
     mission-structure.md
+  .claude/commands/  ← the /marty-* slash commands
   skills/            ← coaching utilities (read on demand, not at startup)
     inner/           ← self-management: accountability, failure loops, strategy
     outer/           ← navigating others: stakeholder mapping, hard conversations
     knowledge/       ← domain expertise: org design, AI rollout patterns, etc.
   missions/          ← structured projects (gitignored — your private state)
+    _template/       ← copied by /marty-new-mission
   people/            ← relationship profiles (gitignored — your private state)
   memory/            ← persistent observations about how you operate (gitignored)
-  tools/             ← deterministic helpers (transcript save, background memory pass)
+  ideas/             ← private idea space (gitignored)
+  tools/             ← deterministic helpers (transcript save, background memory pass, agent-bus)
   console/           ← optional schema-driven project console (web view)
 ```
 
 **Composable by design.** Each file is small and single-purpose. You can revise any file without touching the others. Skills are loaded on demand, not at session start — Marty decides when to pull one.
 
-**Private by default.** `people/`, `missions/`, and `memory/` are gitignored. Your coaching data stays on your machine. Nothing is synced.
+**Private by default.** `people/`, `missions/`, `memory/`, and `ideas/` are gitignored. Your coaching data stays on your machine. Nothing is synced.
 
 ---
 
@@ -58,7 +63,6 @@ cd marty
 ### 2. Open Claude Code and let Marty onboard you
 
 ```bash
-cd marty
 claude  # or open in VS Code with Claude Code extension
 ```
 
@@ -90,21 +94,42 @@ Edit `sources.md` to add your Slack channels, Linear projects, Google Calendar, 
 
 ---
 
+## Commands
+
+Marty ships 16 slash commands, all prefixed `/marty-` so you can spot them at a glance. The daily loop:
+
+| Command | What it does |
+|---------|--------------|
+| `/marty-onboard` | First-run interview — seeds your values, north star, and memory files |
+| `/marty-sitrep` | What you owe, ranked, plus who's waiting on whom. Read-only. |
+| `/marty-update` | Checkpoint this conversation's state to disk |
+| `/marty-process-transcript` | After a meeting: route, save, analyse, update threads and people |
+| `/marty-thread-review` | Hygiene pass when threads feel stale |
+| `/marty-end-session` | Post-chat memory write protocol |
+
+The full set — mission lifecycle (`/marty-new-mission`, `/marty-end-mission`, `/marty-reconcile`), parallel sessions (`/marty-sync`), the agent-bus experiment, and more — is in `SKILLS.md` and `.claude/commands/README.md`, or run `/marty-skills`.
+
+---
+
 ## Missions
 
-A mission is a structured project — a goal Marty tracks with you over time. Create one when you're working on something significant (a career move, a complex initiative, a stretch goal).
+A mission is a structured project — a goal Marty tracks with you over time. Create one when you're working on something significant (a career move, a complex initiative, a stretch goal). Run `/marty-new-mission {name}` to scaffold one from the template:
 
 ```
 missions/
   my-mission/
-    mission.md      ← goal, success criteria, kill criteria
-    decisions.md    ← decisions made and why
-    open-threads.md ← active questions
-    context.md      ← background, constraints
-    stakeholders.md ← people involved (optional)
+    mission.md            ← goal, success criteria, kill criteria, payoff loop
+    operating-mode.md     ← mission-specific posture and rules (optional)
+    knowledge-map.md      ← workstream → file map, so nothing is preloaded
+    memory/
+      decisions.md        ← mission decisions and why
+      open-threads.md     ← active threads with owners
+    sources/
+      registry.md         ← external sources /marty-reconcile pulls from
+      state.md            ← per-source watermarks (written by /marty-reconcile)
 ```
 
-List active missions in `core/active-config.md`. Marty loads them at session start.
+Depth scales — a light mission is just `mission.md` + `memory/`. List active missions in `core/active-config.md`; Marty loads them at session start.
 
 See `core/mission-structure.md` for the full schema and end-of-mission handoff protocol.
 
