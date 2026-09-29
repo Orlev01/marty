@@ -101,7 +101,7 @@ Marty ships 18 slash commands, all prefixed `/marty-` so you can spot them at a 
 | Command | What it does |
 |---------|--------------|
 | `/marty-onboard` | First-run interview — seeds your values, north star, and memory files |
-| `/marty-sitrep` | What you owe, ranked, plus who's waiting on whom. Read-only. |
+| `/marty-status` | What you owe, ranked, plus who's waiting on whom. Read-only. |
 | `/marty-update` | Checkpoint this conversation's state to disk |
 | `/marty-process-transcript` | After a meeting: route, save, analyse, update threads and people |
 | `/marty-thread-review` | Hygiene pass when threads feel stale |

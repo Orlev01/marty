@@ -102,7 +102,7 @@ Apply the chosen verb as one visible write per item. Every close/move also settl
 
 Write conventions (identical to `/marty-update` and `/marty-reconcile`):
 - **Never delete content on a collapse.** Resolved threads move to the Closed table as `| title | one-line outcome + pointer |`. Deletion is the separate `delete` verb, used rarely and only after showing the text.
-- Bold markers control sitrep visibility; carry live markers into wherever the item lands.
+- Bold markers control status visibility; carry live markers into wherever the item lands.
 - Batch by file: collect all edits for one file, apply in one pass.
 - Cite nothing external here — this is internal hygiene, not evidence reconciliation.
 

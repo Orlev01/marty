@@ -12,7 +12,7 @@ Slash commands for driving Marty from Claude Code. Each file in this directory i
 
 | Command | What it does |
 |---------|--------------|
-| `/marty-sitrep` | Quick situational awareness: active missions, top actions ranked by urgency, and who's waiting on whom. Read-only. |
+| `/marty-status` | Quick situational awareness: active missions, top actions ranked by urgency, and who's waiting on whom. Read-only. |
 | `/marty-process-transcript` | After a meeting: route the transcript to the right mission, save the raw verbatim, write the analysis, and update threads and people. |
 | `/marty-sync` | Re-read mutable state from disk to pick up changes made by parallel sessions. Read-only. |
 | `/marty-update` | Flush unwritten state changes from this conversation to disk so parallel sessions can pick them up via `/marty-sync`. |

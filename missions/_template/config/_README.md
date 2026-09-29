@@ -4,12 +4,12 @@ Some Marty commands accept a per-mission extension file here, named after the co
 No file → the command's generic base behaviour. These are optional; delete this
 directory if the mission doesn't need them.
 
-## `marty-sitrep.md`
+## `marty-status.md`
 
-Customises how `/marty-sitrep` groups and sources actions for this mission.
+Customises how `/marty-status` groups and sources actions for this mission.
 
 ```markdown
-# Sitrep config
+# Status config
 
 ## Groups
 Bucket actions into these groups (in order), per the rules below:

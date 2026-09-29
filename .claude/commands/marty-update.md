@@ -39,12 +39,12 @@ This is NOT `/marty-end-session`. The session continues after this. This is a mi
    - Active: title + `**Date:**` + `**Context:**` + `**Outcome:**` + `**What to watch:**`
    - Resolved: move to Resolved section as `| date | name | one-line outcome |`
 
-   **Bold markers** (controls what `/marty-sitrep` surfaces):
+   **Bold markers** (controls what `/marty-status` surfaces):
    - `**Open:**` — must-do, immediate
    - `**Open follow-up:**` — follow-up needed
    - `**Pending:**` — awaiting external response
    - `**Still open:**` — unresolved after previous mention
-   - No marker = context only, sitrep skips it
+   - No marker = context only, status skips it
 
 5. **Report what was written.** One line per change, e.g.:
    - "Closed: marketplace choice thread (Thomas's marketplace)"

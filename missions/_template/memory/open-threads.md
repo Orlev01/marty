@@ -5,7 +5,7 @@ Mission-specific unresolved items. Active threads load at session start (or on r
 **Rules:**
 - Meetings do NOT get threads. Meeting records live in `outreach/`; live follow-ups route into the workstream thread they belong to; the meeting gets a one-line Closed entry.
 - Cap: 15 active threads. When a thread resolves, collapse it to a Closed row.
-- Bold markers (`**Open:**`, `**Pending:**`, etc.) = actionable + sitrep-visible. No marker = context.
+- Bold markers (`**Open:**`, `**Pending:**`, etc.) = actionable + status-visible. No marker = context.
 
 ---
 

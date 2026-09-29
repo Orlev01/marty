@@ -68,7 +68,7 @@ The habit that makes Marty compound. One line each — what it does AND when to 
 
 - Session start is automatic — Marty reads memory and opens.
 - `/marty-update` — flushes this conversation's unwritten state to disk. Reach for it before stepping away, before opening a parallel session, or right after a decision lands mid-conversation. This is the one to actually build a habit around: anything that lives only in the chat is lost when the chat ends.
-- `/marty-sitrep [mission]` — what you owe, ranked, and who's waiting on whom. Start of a working block, or two minutes before a 1:1.
+- `/marty-status [mission]` — what you owe, ranked, and who's waiting on whom. Start of a working block, or two minutes before a 1:1.
 - `/marty-process-transcript` — right after any meeting: paste or point at the transcript and Marty files it.
 - `/marty-end-session` — the deliberate memory write before closing a session with real content in it. Matters most when `memory_mode` is `manual` — it's the main way things get remembered.
 - `/marty-thread-review` — hygiene pass; run it when open-threads starts feeling stale or bloated, roughly weekly.

@@ -21,7 +21,7 @@ The session is ending. Before closing, execute the post-chat memory write protoc
    - Mission decision → `missions/{active-mission}/decisions.md`
    - Mission thread → `missions/{active-mission}/open-threads.md`
 
-3. **Write the updates.** For each file, append a dated entry. Keep entries concise — one paragraph per item, not a session transcript. For open-threads files, follow the markup convention in `core/memory.md`: actionable items get a bold marker (`**Open:**`, `**Program task:**`, etc.), background context gets none. Markers control what sitrep surfaces.
+3. **Write the updates.** For each file, append a dated entry. Keep entries concise — one paragraph per item, not a session transcript. For open-threads files, follow the markup convention in `core/memory.md`: actionable items get a bold marker (`**Open:**`, `**Program task:**`, etc.), background context gets none. Markers control what status surfaces.
 
 4. **Confirm what was written.** Tell [client] which files were updated and what was captured. Keep it to a short list.
 

@@ -66,7 +66,7 @@ Append a dated entry. One concise paragraph per item. Not a session transcript �
 
 ### Open-Threads Markup Convention
 
-Bold extraction markers are the structural signal for importance in `open-threads.md` files. The sitrep skill reads these markers mechanically — if an item has a marker, it surfaces. If it doesn't, it's skipped.
+Bold extraction markers are the structural signal for importance in `open-threads.md` files. The status skill reads these markers mechanically — if an item has a marker, it surfaces. If it doesn't, it's skipped.
 
 **When writing or updating open-threads:**
 - Actionable items [client] needs to do or follow up on get a bold marker: `**Open:**`, `**Open follow-up:**`, `**Open follow-ups:**`, `**Program task:**`, `**Pending:**`, `**Still open:**`, `**Open items:**`
@@ -75,7 +75,7 @@ Bold extraction markers are the structural signal for importance in `open-thread
 - When closing or deprioritizing an item, strike it through (`~~text~~`) or remove the bold marker
 - When an item drops to low priority, add `(low priority)` after the marker or convert it to unmarked prose
 
-The contract: markers = actionable and sitrep-visible. No marker = context that sitrep skips.
+The contract: markers = actionable and status-visible. No marker = context that status skips.
 
 ### Meetings Are Not Threads
 

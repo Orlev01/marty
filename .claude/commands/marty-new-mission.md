@@ -68,5 +68,5 @@ Offer to fill any TODOs now via the `commitment-framing` inner skill, or to regi
 - Overwrite an existing mission, or touch any other mission's files.
 - Fill in KPIs, workstreams, stakeholders, or sources — those are the user's TODOs.
 - Create `people/` files (people are persistent and shared; add them separately when relevant).
-- Run `/marty-reconcile`, `/marty-sitrep`, or scan any source. Creation only.
+- Run `/marty-reconcile`, `/marty-status`, or scan any source. Creation only.
 - Archive or deactivate anything. Removal/close is `/marty-end-mission`.

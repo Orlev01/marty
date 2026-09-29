@@ -38,7 +38,7 @@ Also display the commands (see `.claude/commands/README.md` for the full table):
 - /marty-end-mission — Wrap up a mission with final handoff
 - /marty-refine-idea — Explore and shape an idea in the ideas directory
 - /marty-process-transcript — Route a meeting transcript to the right mission, save the raw, write the analysis
-- /marty-sitrep — Actions you own, ranked, plus who's waiting on whom
+- /marty-status — Actions you own, ranked, plus who's waiting on whom
 - /marty-sync — Re-read mission/memory state from disk to pick up parallel-session changes
 - /marty-update — Flush this conversation's state changes to disk
 - /marty-reconcile — Refresh a mission from its sources: pull + snapshot + cross-reference + propose updates (`--no-update` = pull only)
