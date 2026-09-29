@@ -34,7 +34,7 @@ Marty's first mission is defined by the user. See `core/active-config.md` to con
 
 **Single source of truth per concept.** A value lives in the values file, not duplicated in CLAUDE.md "for context." CLAUDE.md references it. Resist duplication. If a change requires editing three files, the architecture is wrong.
 
-**Future-proof for a dashboard.** All configuration files should be cleanly structured markdown with predictable sections so a future "Marty Console" can read and write them without parsing tricks. Dashboard itself is v2.
+**Future-proof for a dashboard.** All configuration files should be cleanly structured markdown with predictable sections so a future "Marty Console" can read and write them without parsing tricks. Dashboard itself is v2. *(Since shipped as `console/` — see Post-spec additions.)*
 
 ---
 
@@ -126,7 +126,7 @@ This file describes the memory infrastructure. The actual memory lives in `memor
 
 **Open threads (`memory/open-threads.md`).** Things [client] is actively working through that span sessions. Career questions, role questions, relationship questions with specific colleagues. Open threads that need structure, deliverables, and a defined arc graduate to missions.
 
-**Post-chat convention.** When Marty judges that the session produced something worth noting (decision point, disagreement between Marty and [client], moment where Marty was wrong about [client], significant observation about how [client] actually operates), Marty writes to the relevant memory file *before* the session ends. This is a convention, not an automated hook. Marty makes the judgement call about what's worth noting. The convention is: do it before the session ends, not via an external trigger. A real Stop hook in `settings.local.json` is a v2 enhancement.
+**Post-chat convention.** When Marty judges that the session produced something worth noting (decision point, disagreement between Marty and [client], moment where Marty was wrong about [client], significant observation about how [client] actually operates), Marty writes to the relevant memory file *before* the session ends. This is a convention, not an automated hook. Marty makes the judgement call about what's worth noting. The convention is: do it before the session ends, not via an external trigger. A real Stop hook in `settings.local.json` is a v2 enhancement. *(Since shipped — see Post-spec additions.)*
 
 ### 3.7 Skill Invocation (`skill-invocation.md`)
 
@@ -293,7 +293,7 @@ Empty at start. Populated as significant decisions are made, with framing at the
 ## 7. What's Deferred to v2
 
 - **Scope expansion** to side ventures, personal life, or other professional contexts. Would require new memory partitions per scope, scope-aware skill invocation, and explicit context switching. Revise specification before expanding.
-- **Marty Console** — visual dashboard for tweaking Marty's configuration.
+- **Marty Console** — visual dashboard for tweaking Marty's configuration. *(Shipped as `console/` — as a schema-driven project tracker rather than a config editor.)*
 - **Stop hook automation** — real Stop hook in `settings.local.json` for automated post-chat memory writes.
 - **Multi-agent debate mode** — for high-stakes decisions, explicit multi-perspective synthesis.
 - **Capacity awareness skill** — Marty paying attention to [client]'s energy and capacity.
@@ -309,6 +309,17 @@ Empty at start. Populated as significant decisions are made, with framing at the
 - If during build a sub-agent identifies a contradiction or gap in this specification, it stops and surfaces it to the orchestrator. The orchestrator surfaces it to [client]. Do not silently resolve specification ambiguities.
 - All files are predictable markdown with consistent section headers, designed for future programmatic reading.
 - The build log tracks: phase complete, phase in progress, phase pending, known problems, decisions diverged from spec.
+
+## Post-spec additions (shipped since this document was written)
+
+The sections above describe the original v1 design and its anticipated v2 items. The following have since shipped; the spec remains accurate except where annotated inline:
+
+- **Settings block** (`core/active-config.md`) — grep-able `key: value` runtime settings read by Marty and by `tools/` scripts: `memory_mode`, `memory_pass_model`, `calendar_at_session_start`.
+- **Background memory pass** — the anticipated Stop hook, implemented: `tools/memory_pass.py` runs a detached cheap-model pass applying the memory routing rules, guarded by `tools/memory_gate.py` (deny-by-default write gate: five memory files, append-only, ≤3 edits per pass). Opt-in via `memory_mode: auto`; audited in `memory/memory-pass.log`.
+- **Onboarding** — `/marty-onboard`: guided first-run interview that seeds the personal core files, walks the Settings one decision at a time, and teaches the daily loop.
+- **The scaffold pattern** — template + scaffold command + registration for every extension surface: missions (`/marty-new-mission`), hooks (`/marty-new-hook` + `tools/_template_hook.py` + "The hook pattern" in `tools/README.md`), skills (`/marty-new-skill` + `skills/_template.md` — four registration points), people profiles (`people/_template.md`), and per-mission command extensions (`missions/_template/config/`).
+- **Console** (`console/`) — schema-driven, event-sourced project tracker with a generated web view; each schema field carries an `aiInstruction`. Its Sources tab renders the markdown source registries read-only — markdown stays the single source of truth.
+- **Command naming** — all commands ship with the `/marty-` prefix; per-mission extensions are named after the command (`config/marty-status.md`, `config/marty-process-transcript.md`, `config/marty-reconcile.md`).
 
 ---
 
