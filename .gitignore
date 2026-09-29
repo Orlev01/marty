@@ -16,6 +16,7 @@ node_modules/
 # but never make a fork public while this data is in the history.
 people/*
 !people/README.md
+!people/_template.md
 memory/*
 !memory/README.md
 missions/*

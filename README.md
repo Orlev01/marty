@@ -17,7 +17,7 @@ It is not a chatbot. It is not a journaling tool. It is a peer-level voice that 
 ```
 marty/
   CLAUDE.md          ← the manifest; Claude reads this first
-  SKILLS.md          ← full registry: 22 skills + 17 commands, with triggers
+  SKILLS.md          ← full registry: 22 skills + 18 commands, with triggers
   sources.md         ← persistent data-source registry (template)
   core/              ← who Marty is and how Marty coaches you
     identity.md      ← the coaching relationship
@@ -96,7 +96,7 @@ Edit `sources.md` to add your Slack channels, Linear projects, Google Calendar, 
 
 ## Commands
 
-Marty ships 17 slash commands, all prefixed `/marty-` so you can spot them at a glance. The daily loop:
+Marty ships 18 slash commands, all prefixed `/marty-` so you can spot them at a glance. The daily loop:
 
 | Command | What it does |
 |---------|--------------|

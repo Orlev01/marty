@@ -48,6 +48,7 @@ Slash commands — invoke directly in Claude Code. Full table with usage notes: 
 - **/marty-refine-idea** — Work an idea from `ideas/` through coaching: clarify, stress test, connect, land on one next action.
 - **/marty-skills** — Display this registry, organized by category.
 - **/marty-new-hook** — Scaffold a new Claude Code hook from `tools/_template_hook.py`: settings-gated, non-blocking, logged, off by default.
+- **/marty-new-skill** — Scaffold a new coaching skill from `skills/_template.md` and register it in all four required places (skill file, SKILLS.md, CLAUDE.md, `core/skill-invocation.md`).
 - **/marty-foundations-first-explainer** — Teach any topic bottom-up, building each concept on the one before it.
 - **/marty-initiator** — Open an autonomous peer conversation with a second Claude Code agent over the agent-bus.
 - **/marty-reactor** — Join that conversation as the responder.
