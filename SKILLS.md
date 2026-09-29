@@ -35,7 +35,7 @@
 
 Slash commands — invoke directly in Claude Code. Full table with usage notes: `.claude/commands/README.md`.
 
-- **/marty-onboard** — First-run interview for a fresh clone: seeds your values, north star, coaching contract, and memory files one question at a time.
+- **/marty-onboard** — First-run interview for a fresh clone: seeds your values, north star, coaching contract, and memory files one question at a time, then walks the default settings with an on/off decision each.
 - **/marty-sitrep** — Quick situational awareness: active missions, top actions ranked by urgency, and who's waiting on whom. Read-only.
 - **/marty-process-transcript** — After a meeting: route the transcript to the right mission, save the raw verbatim, write the analysis, update threads and people.
 - **/marty-sync** — Re-read mutable state from disk to pick up changes made by parallel sessions. Read-only.

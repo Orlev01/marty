@@ -6,7 +6,7 @@ Slash commands for driving Marty from Claude Code. Each file in this directory i
 
 | Command | What it does |
 |---------|--------------|
-| `/marty-onboard` | First-run interview for a fresh clone: seeds your values, north star, coaching contract, and memory files one question at a time. Re-run a single section with `/marty-onboard {values|north-star|contract|sources}`. |
+| `/marty-onboard` | First-run interview for a fresh clone: seeds your values, north star, coaching contract, and memory files one question at a time, then walks the default settings (background memory pass, calendar check) with an on/off decision each. Re-run a single section with `/marty-onboard {values|north-star|contract|sources|settings}`. |
 
 ## Day-to-day
 

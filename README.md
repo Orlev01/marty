@@ -66,7 +66,7 @@ cd marty
 claude  # or open in VS Code with Claude Code extension
 ```
 
-Claude reads `CLAUDE.md` automatically. On a fresh clone, Marty detects there's no memory yet and offers **`/marty-onboard`** — a guided interview, one question at a time, that fills in your values, north star, and coaching contract, and teaches you the daily loop. You can paste a bio, LinkedIn, or self-review and Marty drafts answers for you to correct. Every answer is written to a file in front of you.
+Claude reads `CLAUDE.md` automatically. On a fresh clone, Marty detects there's no memory yet and offers **`/marty-onboard`** — a guided interview, one question at a time, that fills in your values, north star, and coaching contract, walks the default settings with an on/off decision each, and teaches you the daily loop. You can paste a bio, LinkedIn, or self-review and Marty drafts answers for you to correct. Every answer is written to a file in front of you.
 
 ### 3. Or fill in the core files by hand
 
@@ -155,7 +155,7 @@ To change the analogy, update `core/active-analogy.md` and `core/active-config.m
 
 By default, memory writes happen in-session (visible file edits you approve). If you want Marty to also catch memory-worthy moments automatically, a Stop hook can run a detached, cheap-model memory pass after each exchange — gated by a deny-by-default write judge, logged to `memory/memory-pass.log`, and never delaying the live conversation.
 
-It's off until you opt in: see "Hook setup" in `tools/README.md`, then set `memory_mode: auto` in `core/active-config.md`.
+It's off until you opt in: `/marty-onboard` walks you through the decision and sets it up with your consent, or do it by hand — see "Hook setup" in `tools/README.md`, then set `memory_mode: auto` in `core/active-config.md`.
 
 ---
 

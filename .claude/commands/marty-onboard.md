@@ -1,4 +1,4 @@
-Onboard a new person into a fresh Marty clone: interview them one question at a time, seed the personal files, and teach the daily loop. Run: `/marty-onboard` (full) or `/marty-onboard {section}` to redo one section (`values` | `north-star` | `contract` | `sources`).
+Onboard a new person into a fresh Marty clone: interview them one question at a time, seed the personal files, walk the default settings, and teach the daily loop. Run: `/marty-onboard` (full) or `/marty-onboard {section}` to redo one section (`values` | `north-star` | `contract` | `sources` | `settings`).
 
 ## When this runs
 
@@ -48,27 +48,43 @@ Name, role, org, and what the work actually is right now — their words.
 
 "What's the one initiative that matters most right now?" If they name one, run `/marty-new-mission {name}`, then offer commitment-framing for goal / success / kill / payoff. If they'd rather wait, skip — Marty works without a mission and the offer resurfaces later.
 
-### 6. Sources and settings
+### 6. Sources
 
-Check which connectors this environment actually has (calendar, Slack, Notion — a cheap read or a look at what's configured; don't guess). Say which are live and what each unlocks. Point at the Settings block in `core/active-config.md`: `memory_mode` starts `manual`; `auto` requires the Stop hook — send them to "Hook setup" in `tools/README.md`. Do not enable auto for them.
+Check which connectors this environment actually has (calendar, Slack, Notion — a cheap read or a look at what's configured; don't guess). Say which are live and what each unlocks. If they want sources registered, seed `sources.md` (persistent) or the mission's `sources/registry.md` with what they name.
 
-### 7. The daily loop (teach, then stop)
+### 7. Settings, one at a time
 
-One line each:
+Walk the Settings block in `core/active-config.md` one setting at a time. For each: explain what it does and the trade-off in two or three plain sentences, ask on or off, and apply their choice as a visible file edit. Skipping keeps the default. Never present the settings as a wall of options — one decision per turn.
+
+**`memory_mode` (default `manual`).** The background memory pass: after each exchange, a Stop hook detaches a cheap-model pass that applies the memory routing rules out-of-band — the live conversation never waits on it. It is hard-gated by code, not just prompts: it can only touch the five memory files, append-only, at most 3 edits per pass, and every run logs one line to `memory/memory-pass.log`, which session start surfaces. Most people who try it keep it — nothing memory-worthy slips because a conversation moved fast. Cost: one small model call per exchange; requires the `claude` CLI on PATH. If they want it on, show them BOTH edits before making either — the Stop hook added to `.claude/settings.local.json` (exact JSON in "Hook setup" in `tools/README.md`) and `memory_mode: auto` — and get an explicit yes for each. Tell them the off-switch is one line: `memory_mode: manual`.
+
+**`memory_pass_model` (default `claude-haiku-4-5`).** Only raise this if they turned auto on: the pass runs on a cheap fast model by default; leave it unless they have a reason to change.
+
+**`calendar_at_session_start` (default `on`).** At session start Marty glances at today's calendar to shape the opening ("you've got [stakeholder] in 90 minutes — want to prep?"). Only does anything if a calendar MCP connector is live (reference what section 6 found). If they have no connector or don't want it, set `off`.
+
+### 8. The daily loop (teach, then stop)
+
+The habit that makes Marty compound. One line each — what it does AND when to reach for it:
+
 - Session start is automatic — Marty reads memory and opens.
-- `/marty-update` — checkpoint this conversation's state to files.
-- `/marty-sitrep [mission]` — what you owe, ranked.
-- `/marty-process-transcript` — after any meeting, paste or point at the transcript.
-- `/marty-thread-review` — hygiene; run when threads feel stale.
-- `/marty-skills` — the full index.
+- `/marty-update` — flushes this conversation's unwritten state to disk. Reach for it before stepping away, before opening a parallel session, or right after a decision lands mid-conversation. This is the one to actually build a habit around: anything that lives only in the chat is lost when the chat ends.
+- `/marty-sitrep [mission]` — what you owe, ranked, and who's waiting on whom. Start of a working block, or two minutes before a 1:1.
+- `/marty-process-transcript` — right after any meeting: paste or point at the transcript and Marty files it.
+- `/marty-end-session` — the deliberate memory write before closing a session with real content in it. Matters most when `memory_mode` is `manual` — it's the main way things get remembered.
+- `/marty-thread-review` — hygiene pass; run it when open-threads starts feeling stale or bloated, roughly weekly.
+- `/marty-skills` — the full index of skills and commands.
 
-### 8. Close
+### 9. Power tools (mention, don't demo)
 
-One short paragraph: what got written where, what's still a template, and that Marty is at its worst today — memory compounds, so the first week is the flattest it will ever be. Then wait mode.
+One breath, then move on: `tools/agent-bus/` lets two Claude Code agents hold a live peer conversation over a file bus — `/marty-initiator` opens it, `/marty-reactor` joins from a second terminal, `/marty-end-comms` closes it and saves the transcript. Useful when they want a plan debated from two independent postures or a decision red-teamed by an agent that doesn't share this session's assumptions. Experimental; point at `tools/agent-bus/README.md` and let them come back to it when a real use shows up.
+
+### 10. Close
+
+One short paragraph: what got written where, which settings they chose, what's still a template, and that Marty is at its worst today — memory compounds, so the first week is the flattest it will ever be. Then wait mode.
 
 ## What this does NOT do
 
 - Invent values, goals, KPIs, or missions the user didn't state.
 - Touch `people/` beyond the empty index — people files accrue from real interactions.
-- Enable `memory_mode: auto` or edit `.claude/settings.local.json`.
+- Change a setting or edit `.claude/settings.local.json` without an explicit yes to that specific edit — a skipped question means the default stands.
 - Run the full interview on an already-onboarded Marty.
