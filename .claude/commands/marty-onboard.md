@@ -76,7 +76,10 @@ The habit that makes Marty compound. One line each — what it does AND when to 
 
 ### 9. Power tools (mention, don't demo)
 
-One breath, then move on: `tools/agent-bus/` lets two Claude Code agents hold a live peer conversation over a file bus — `/marty-initiator` opens it, `/marty-reactor` joins from a second terminal, `/marty-end-comms` closes it and saves the transcript. Useful when they want a plan debated from two independent postures or a decision red-teamed by an agent that doesn't share this session's assumptions. Experimental; point at `tools/agent-bus/README.md` and let them come back to it when a real use shows up.
+One breath each, then move on:
+
+- **Console** (`console/`) — an optional visual project tracker: schema-driven records (tasks, blockers, risks, decisions...) with a web view, where each schema field carries an AI instruction so Marty knows how to maintain the data. Its Sources tab is a read-only mirror of the source registries from section 6. Needs Node: `cd console && npm install && npm run serve`, then http://localhost:8244. Point at `console/CLAUDE.md`; suggest it once they have a mission with real moving parts, not before.
+- **Agent-bus** (`tools/agent-bus/`) — two Claude Code agents holding a live peer conversation over a file bus: `/marty-initiator` opens it, `/marty-reactor` joins from a second terminal, `/marty-end-comms` closes it and saves the transcript. Useful when they want a plan debated from two independent postures or a decision red-teamed by an agent that doesn't share this session's assumptions. Experimental; point at `tools/agent-bus/README.md` and let them come back to it when a real use shows up.
 
 ### 10. Close
 
