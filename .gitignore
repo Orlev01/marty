@@ -27,6 +27,10 @@ ideas/*
 # Agent-bus conversation transcripts — durable on disk, not committed
 tools/agent-bus/transcripts/
 
+# Hook run logs and locks
+tools/*.log
+tools/.*.lock
+
 # Console local state — computed or session-specific
 console/cycle_state.json
 console/activity_log.md

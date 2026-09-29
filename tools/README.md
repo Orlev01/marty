@@ -24,11 +24,34 @@ without re-doing the work.
   `~/.claude/memory-pass/.claude/settings.json`, so it never touches live
   sessions. Self-test: `python3 tools/memory_gate.py --self-test` (19 cases).
 - `agent-bus/` — pre-existing agent transcript bus.
+- `_template_hook.py` — the hook scaffold copied by `/marty-new-hook`. Not a
+  runnable tool; placeholder tokens get replaced at scaffold time.
+
+## The hook pattern
+
+Every Marty hook follows five rules. `/marty-new-hook` scaffolds them for you
+(from `_template_hook.py`); keep them if you write one by hand:
+
+1. **Gated by a Settings key** in `core/active-config.md` (`<name>_hook: off` by
+   default). The hook is registered permanently but inert until switched on —
+   the off-switch is one line of markdown, never uninstalling.
+2. **Never blocks the live session.** Entry mode gate-checks, detaches a worker
+   (`start_new_session=True`), and exits 0. All real work is out-of-band.
+3. **One log line per run** (`tools/<name>.log`, gitignored) so every firing is
+   auditable.
+4. **Deterministic first, model second.** Mechanical work in code; if judgment
+   is needed, a headless `claude -p` on a cheap model from a neutral cwd — and
+   if that run edits files, a deny-by-default PreToolUse write gate
+   (`memory_gate.py` is the reference).
+5. **One concurrent run** via a pid lockfile; stale locks self-clear.
+
+`memory_pass.py` + `memory_gate.py` are the worked example of all five.
 
 ## Candidates for later
 
 Source-staleness checks (session start), thread/decision threshold counts
-(`/marty-thread-review` classify phase), knowledge-map desync detection.
+(`/marty-thread-review` classify phase), knowledge-map desync detection — each
+is a natural `/marty-new-hook` scaffold.
 
 ## Hook setup (for a fresh clone)
 

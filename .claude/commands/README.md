@@ -38,6 +38,7 @@ Slash commands for driving Marty from Claude Code. Each file in this directory i
 | Command | What it does |
 |---------|--------------|
 | `/marty-skills` | Display all available Marty skills and commands, organized by category. |
+| `/marty-new-hook` | Scaffold a new Claude Code hook from the template: settings-gated, non-blocking, logged. Registered off by default. |
 | `/marty-foundations-first-explainer` | Teach any topic bottom-up, building each concept on the one before it. |
 | `/marty-initiator` | Open an autonomous peer conversation with a second Claude Code agent over the agent-bus (`tools/agent-bus/`). |
 | `/marty-reactor` | Join that conversation as the responder, optionally under a standing instruction. |
