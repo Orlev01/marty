@@ -21,7 +21,7 @@ without re-doing the work.
   write judge): path allowlist
   (the five memory files, symlink/traversal-safe), append-only checks (Edit
   old⊆new; Write existing-prefix), ≤3 edits per session. Registered per-pass in
-  `~/.claude/memory-pass/.claude/settings.json`, so it never touches live
+  `~/.claude/marty-memory-pass/.claude/settings.json`, so it never touches live
   sessions. Self-test: `python3 tools/memory_gate.py --self-test` (19 cases).
 - `agent-bus/` — pre-existing agent transcript bus.
 - `_template_hook.py` — the hook scaffold copied by `/marty-new-hook`. Not a

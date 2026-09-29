@@ -28,7 +28,7 @@ Until 1–4 exist, the mission is in the **Defining** phase, not Active.
 - `evidence/` — heavy external authoritative docs (with a README manifest).
 - `outreach/` — meeting records (`{type}-{name}-{date}.md`).
 - `transcripts/` — raw meeting transcripts, paired with `outreach/` by filename. Gitignored, local-only; may contain PHI — never sync it anywhere.
-- `config/` — per-mission command extensions, named after the command (e.g. `marty-sitrep.md`, `marty-process-transcript.md`). See `config/_README.md` for skeletons; delete the directory if unused.
+- `config/` — per-mission command extensions, named after the command (`marty-sitrep.md`, `marty-process-transcript.md`, `marty-reconcile.md`). See `config/_README.md` for skeletons; delete the directory if unused.
 - `ideas/` — mission-scoped ideas.
 
 ## Scaffold map

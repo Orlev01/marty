@@ -40,3 +40,25 @@ For `{type-id}` transcripts, additionally extract:
 After the analysis is written:
 1. {e.g. append value/ROI signals to a signal log artifact}
 ```
+
+## `marty-reconcile.md`
+
+Extends `/marty-reconcile` with this mission's specifics.
+
+```markdown
+# Reconcile config
+
+## Extra evidence types
+{type-id} — {what in pulled content counts as this type}
+
+## Registries to match
+- {registry file or tracker} — {what pulled items should be matched against it}
+
+## No-close list
+Threads that are update-only (never auto-closed):
+- {thread name} — {why it stays open}
+
+## Post-steps
+After updates are applied:
+1. {e.g. check roadmap milestones against advanced threads}
+```
